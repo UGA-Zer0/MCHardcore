@@ -1,0 +1,56 @@
+tile.copperOre.name=Copper Ore
+tile.tinOre.name=Tin Ore
+
+item.copperNugget.name=Copper Nugget
+item.tinNugget.name=Tin Nugget
+item.ironNugget.name=Iron Nugget
+item.diamondShard.name=Diamond Shard
+item.obsidianShard.name=Obsidian Shard
+
+item.bronzeDust.name=Bronze Dust
+item.tinDust.name=Tin Dust
+item.copperDust.name=Copper Dust
+item.ironDust.name=Iron Dust
+item.goldDust.name=Gold Dust
+
+item.bronzeUnref.name=Unrefined Bronze
+item.copperUnref.name=Unrefined Copper
+item.ironUnref.name=Unrefined Iron
+item.goldUnref.name=Unrefined Gold
+item.diamondUnref.name=Unrefined Diamond
+item.obsidianUnref.name=Unrefined Obsidian
+
+item.bronzeIngot.name=Bronze Ingot
+item.copperIngot.name=Copper Ingot
+item.diamondIngot.name=Diamond Ingot
+item.obsidianIngot.name=Obsidian Ingot
+
+item.bronzePickaxe.name=Bronze Pickaxe
+item.copperPickaxe.name=Copper Pickaxe
+item.ironPickaxe.name=Iron Pickaxe
+item.diamondPickaxe.name=Diamond Pickaxe
+item.obsidianPickaxe.name=Obsidian Pickaxe
+
+item.bronzeAxe.name=Bronze Axe
+item.copperAxe.name=Copper Axe
+item.ironAxe.name=Iron Axe
+item.diamondAxe.name=Diamond Axe
+item.obsidianAxe.name=Obsidian Axe
+
+item.bronzeHoe.name=Bronze Hoe
+item.copperHoe.name=Copper Hoe
+item.ironHoe.name=Iron Hoe
+item.diamondHoe.name=Diamond Hoe
+item.obsidianHoe.name=Obsidian Hoe
+
+item.bronzeShovel.name=Bronze Shovel
+item.copperShovel.name=Copper Shovel
+item.ironShovel.name=Iron Shovel
+item.diamondShovel.name=Diamond Shovel
+item.obsidianShovel.name=Obsidian Shovel
+
+item.bronzeSword.name=Bronze Sword
+item.copperSword.name=Copper Sword
+item.ironSword.name=Iron Sword
+item.diamondSword.name=Diamond Sword
+item.obsidianSword.name=Obsidian Sword

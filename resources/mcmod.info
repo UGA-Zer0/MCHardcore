@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mchardcore",
+  "name": "Minecraft Hardcore",
+  "description": "Minecraft Hardcore Mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Zer0HD"],
+  "credits": "Zer0HD",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
