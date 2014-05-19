@@ -1,6 +1,8 @@
 tile.copperOre.name=Copper Ore
 tile.tinOre.name=Tin Ore
 
+tile.grindingMachine.name=Grinding Machine
+
 item.copperNugget.name=Copper Nugget
 item.tinNugget.name=Tin Nugget
 item.ironNugget.name=Iron Nugget

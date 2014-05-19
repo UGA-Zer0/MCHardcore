@@ -5,6 +5,7 @@ import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -28,11 +29,15 @@ public class MCHardcore {
 	@SidedProxy(clientSide = "com.zer0.hardcore.ClientProxy", serverSide = "com.zer0.hardcore.ServerProxy")
 	public static ServerProxy proxy;
 	
+	@Instance(Reference.MODID)
+	public static MCHardcore modInstance;
+	
 //PRE-INIT
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		
 		proxy.registerRenderer();
+		proxy.registerTileEntities();
 		
 	//REGISTER EVENT LISTENERS		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestEvent());
