@@ -15,6 +15,7 @@ import com.zer0.hardcore.blocks.VanillaBlocks;
 import com.zer0.hardcore.events.BlockHarvestEvent;
 import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.items.ModItems;
+import com.zer0.hardcore.recipes.ArmourRecipes;
 import com.zer0.hardcore.recipes.ItemRecipes;
 import com.zer0.hardcore.recipes.ToolRecipes;
 import com.zer0.hardcore.tools.ModTools;
@@ -50,6 +51,7 @@ public class MCHardcore {
 	//INITIALIZE RECIPES
 		ToolRecipes.initRecipes();
 		ItemRecipes.initRecipes();
+		ArmourRecipes.initRecipes();
 		
 	//INITIALISE WORLD GEN
 		HCWorld.mainRegistry();
