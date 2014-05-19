@@ -40,8 +40,8 @@ public class ModTools {
 		public static Item diamondSword;
 		
 	//MATERIALS
-		static ToolMaterial bronzeMaterial = EnumHelper.addToolMaterial("bronzeMaterial", 3, 150, 4.5F, 2.0F, 12);
-		static ToolMaterial copperMaterial = EnumHelper.addToolMaterial("copperMaterial", 2, 170, 5.0F, 2.4F, 13);
+		static ToolMaterial copperMaterial = EnumHelper.addToolMaterial("copperMaterial", 2, 150, 5.0F, 2.0F, 12);
+		static ToolMaterial bronzeMaterial = EnumHelper.addToolMaterial("bronzeMaterial", 3, 170, 5.0F, 2.0F, 13);
 		static ToolMaterial obsidianMaterial = EnumHelper.addToolMaterial("obsidianMaterial", 7, -1, 16.0F, 12.0F, 50);
 		
 		static ToolMaterial hardcoreIronMaterial = EnumHelper.addToolMaterial("hardcoreIronMaterial", 4, 250, 6.0F, 2.0F, 14);
