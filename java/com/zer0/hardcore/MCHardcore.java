@@ -7,6 +7,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import com.google.common.reflect.Reflection;
@@ -36,9 +37,6 @@ public class MCHardcore {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		
-		proxy.registerRenderer();
-		proxy.registerTileEntities();
-		
 	//REGISTER EVENT LISTENERS		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestEvent());
 		
@@ -60,5 +58,14 @@ public class MCHardcore {
 		
 	//INITIALISE WORLD GEN
 		HCWorld.mainRegistry();
+		
+		proxy.registerRenderer();
+		proxy.registerTileEntities();
+	}
+	
+	@EventHandler
+	public static void load(FMLInitializationEvent event)
+	{
+		proxy.registerNetwork();
 	}
 }

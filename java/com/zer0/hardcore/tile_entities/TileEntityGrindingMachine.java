@@ -276,6 +276,11 @@ public class TileEntityGrindingMachine extends TileEntity implements ISidedInven
 			{
 				this.furnaceItemStacks[2].stackSize += itemstack.stackSize;
 			}
+			--this.furnaceItemStacks[0].stackSize;
+			if(this.furnaceItemStacks[0].stackSize >= 0)
+			{
+				this.furnaceItemStacks[0] = null;
+			}
 		}
 	}
 	

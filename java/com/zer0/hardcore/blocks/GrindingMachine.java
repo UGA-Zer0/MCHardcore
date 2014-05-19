@@ -3,6 +3,7 @@ package com.zer0.hardcore.blocks;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,7 +24,7 @@ import com.zer0.hardcore.tile_entities.TileEntityGrindingMachine;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class GrindingMachine extends Block {
+public class GrindingMachine extends BlockContainer {
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon top;
@@ -65,8 +66,7 @@ public class GrindingMachine extends Block {
 		}
 	}
 	
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6,
-									float par7, float par8, float par9)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
 	{
 		player.openGui(MCHardcore.modInstance, 0, world, x, y, z);
 		return true;
@@ -261,5 +261,10 @@ public class GrindingMachine extends Block {
 				world.spawnParticle("smoke", (double)(xx-zz2), (double)yy, (double)(zz + xx2), 0.0F, 0.0F, 0.0F);
 			}
 		}
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World var1, int var2) {
+		return new TileEntityGrindingMachine();
 	}
 }
