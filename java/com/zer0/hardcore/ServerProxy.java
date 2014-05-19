@@ -6,5 +6,10 @@ public class ServerProxy {
 	{
 		
 	}
+	
+	public int addArmour(String armour)
+	{
+		return 0;
+	}
 
 }

@@ -9,6 +9,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import com.google.common.reflect.Reflection;
+import com.zer0.hardcore.armour.ModArmour;
 import com.zer0.hardcore.blocks.ModBlocks;
 import com.zer0.hardcore.blocks.VanillaBlocks;
 import com.zer0.hardcore.events.BlockHarvestEvent;
@@ -44,6 +45,7 @@ public class MCHardcore {
 		ModBlocks.registerBlocks();
 		ModItems.registerItems();
 		ModTools.registerTools();
+		ModArmour.registerArmour();
 		
 	//INITIALIZE RECIPES
 		ToolRecipes.initRecipes();

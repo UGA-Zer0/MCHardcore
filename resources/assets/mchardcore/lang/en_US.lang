@@ -54,3 +54,8 @@ item.copperSword.name=Copper Sword
 item.ironSword.name=Iron Sword
 item.diamondSword.name=Diamond Sword
 item.obsidianSword.name=Obsidian Sword
+
+item.obsidianHelm.name=Obsidian Helmet
+item.obsidianChestplate.name=Obsidian Chestplate
+item.obsidianLegs.name=Obsidian Platelegs
+item.obsidianBoots.name=Obsidian Boots
