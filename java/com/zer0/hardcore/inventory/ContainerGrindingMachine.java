@@ -7,8 +7,8 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 
+import com.zer0.hardcore.recipes.GrindingMachineRecipes;
 import com.zer0.hardcore.tile_entities.TileEntityGrindingMachine;
 
 import cpw.mods.fml.relauncher.Side;
@@ -111,7 +111,7 @@ public class ContainerGrindingMachine extends Container {
 				}
 				slot.onSlotChange(itemstack1, itemstack);
 			}else if(par2 != 1 && par2 != 0){
-				if(FurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null){
+				if(GrindingMachineRecipes.smelting().getSmeltingResult(itemstack1) != null){
 					if(!this.mergeItemStack(itemstack1, 0, 1, false)){
 						return null;
 					}

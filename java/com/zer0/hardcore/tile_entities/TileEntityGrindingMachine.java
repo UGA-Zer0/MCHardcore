@@ -12,12 +12,12 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 
 import com.zer0.hardcore.blocks.GrindingMachine;
+import com.zer0.hardcore.recipes.GrindingMachineRecipes;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -254,7 +254,7 @@ public class TileEntityGrindingMachine extends TileEntity implements ISidedInven
 		}
 		else
 		{
-			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
+			ItemStack itemstack = GrindingMachineRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
 			if(itemstack == null) return false;
 			if(this.furnaceItemStacks[2] == null) return true;
 			if(!this.furnaceItemStacks[2].isItemEqual(itemstack)) return false;
@@ -267,7 +267,7 @@ public class TileEntityGrindingMachine extends TileEntity implements ISidedInven
 	{
 		if(this.canSmelt())
 		{
-			ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
+			ItemStack itemstack = GrindingMachineRecipes.smelting().getSmeltingResult(this.furnaceItemStacks[0]);
 			if(this.furnaceItemStacks[2] == null)
 			{
 				this.furnaceItemStacks[2] = itemstack.copy();
@@ -277,7 +277,7 @@ public class TileEntityGrindingMachine extends TileEntity implements ISidedInven
 				this.furnaceItemStacks[2].stackSize += itemstack.stackSize;
 			}
 			--this.furnaceItemStacks[0].stackSize;
-			if(this.furnaceItemStacks[0].stackSize >= 0)
+			if(this.furnaceItemStacks[0].stackSize == 0)
 			{
 				this.furnaceItemStacks[0] = null;
 			}
