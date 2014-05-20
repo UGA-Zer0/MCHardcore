@@ -3,6 +3,8 @@ tile.tinOre.name=Tin Ore
 
 tile.grindingMachine.name=Grinding Machine
 
+entity.obsidianKnight.name=Obsidian Knight
+
 item.copperNugget.name=Copper Nugget
 item.tinNugget.name=Tin Nugget
 item.ironNugget.name=Iron Nugget

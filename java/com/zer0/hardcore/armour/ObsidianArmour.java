@@ -52,9 +52,8 @@ public class ObsidianArmour extends ItemArmor {
 				legs.getItem() == ModArmour.obsidianLegs &&
 				boots.getItem() == ModArmour.obsidianBoots)
 			{
-				player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 100, 1));
-				player.addPotionEffect(new PotionEffect(Potion.damageBoost.getId(), 100, 2));
-				player.addPotionEffect(new PotionEffect(Potion.regeneration.getId(), 100, 1));
+				player.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 20, 1));
+				player.addPotionEffect(new PotionEffect(Potion.regeneration.getId(), 20, 1));
 				
 				if(player.isBurning())
 				{

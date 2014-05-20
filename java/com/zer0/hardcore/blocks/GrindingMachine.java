@@ -38,6 +38,10 @@ public class GrindingMachine extends BlockContainer {
 	protected GrindingMachine(boolean isActive) {
 		super(Material.rock);
 		isBurning2 = isActive;
+		
+		this.setHardness(10.0F);
+		setResistance(5.0F);
+		setHarvestLevel("pickaxe", 1);
 	}
 	
 	@SideOnly(Side.CLIENT)

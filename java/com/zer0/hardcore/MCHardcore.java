@@ -14,8 +14,12 @@ import com.google.common.reflect.Reflection;
 import com.zer0.hardcore.armour.ModArmour;
 import com.zer0.hardcore.blocks.ModBlocks;
 import com.zer0.hardcore.blocks.VanillaBlocks;
+import com.zer0.hardcore.entities.ObsidianKnight;
+import com.zer0.hardcore.entities.SpawnHandler;
 import com.zer0.hardcore.events.BlockHarvestEvent;
+import com.zer0.hardcore.events.PlayerTickEvent;
 import com.zer0.hardcore.help.Reference;
+import com.zer0.hardcore.help.RegisterHelper;
 import com.zer0.hardcore.items.ModItems;
 import com.zer0.hardcore.recipes.ArmourRecipes;
 import com.zer0.hardcore.recipes.ItemRecipes;
@@ -39,6 +43,7 @@ public class MCHardcore {
 		
 	//REGISTER EVENT LISTENERS		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestEvent());
+		FMLCommonHandler.instance().bus().register(new PlayerTickEvent());
 		
 	//MODIFY VANILLA FILES
 		Reflection.initialize(ForgeHooks.class);
@@ -59,8 +64,13 @@ public class MCHardcore {
 	//INITIALISE WORLD GEN
 		HCWorld.mainRegistry();
 		
+	//REGISTER ENTITIES
+		RegisterHelper.registerEntity(ObsidianKnight.class, "obsidianKnight");
+		
 		proxy.registerRenderer();
 		proxy.registerTileEntities();
+		
+		SpawnHandler.registerMobSpawns();
 	}
 	
 	@EventHandler
