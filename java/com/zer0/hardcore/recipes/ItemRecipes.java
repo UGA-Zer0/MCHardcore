@@ -12,10 +12,6 @@ public class ItemRecipes {
 	public static void initRecipes()
 	{
 		//COPPER
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.copperDust), new Object[]
-				{
-					ModItems.copperNugget
-				});
 		GameRegistry.addRecipe(new ItemStack(ModItems.copperUnref), new Object[]
 				{
 					"XXX",
@@ -25,18 +21,12 @@ public class ItemRecipes {
 				});
 		GameRegistry.addSmelting(new ItemStack(ModItems.copperUnref), new ItemStack(ModItems.copperIngot), 10);
 		
-		//TIN & COPPER DUST
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.tinDust), new Object[]
-				{
-					ModItems.tinNugget
-				});
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.copperDust), new Object[]
+		//BRONZE
+		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.bronzeDust), new Object[]
 				{
 					ModItems.tinDust,
-					ModItems.bronzeDust
+					ModItems.copperDust
 				});
-		
-		//BRONZE
 		GameRegistry.addRecipe(new ItemStack(ModItems.bronzeUnref), new Object[]
 				{
 					"XXX",
@@ -47,10 +37,6 @@ public class ItemRecipes {
 		GameRegistry.addSmelting(new ItemStack(ModItems.bronzeUnref), new ItemStack(ModItems.bronzeIngot), 20);
 		
 		//IRON
-		GameRegistry.addShapelessRecipe(new ItemStack(ModItems.ironDust), new Object[]
-				{
-					ModItems.ironNugget
-				});
 		GameRegistry.addRecipe(new ItemStack(ModItems.ironUnref), new Object[]
 				{
 					"XXX",

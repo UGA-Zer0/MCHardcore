@@ -22,8 +22,7 @@ public class ModBlocks {
 		
 		grindingMachine = new GrindingMachine(false).setBlockName("grindingMachine")
 				.setCreativeTab(CreativeTabs.tabDecorations);
-		grindingMachineActive = new GrindingMachine(true).setBlockName("grindingMachineActive")
-				.setCreativeTab(CreativeTabs.tabDecorations);
+		grindingMachineActive = new GrindingMachine(true).setBlockName("grindingMachineActive");
 				
 	//REGISTER BLOCKS
 		RegisterHelper.registerBlock(copperOre);
