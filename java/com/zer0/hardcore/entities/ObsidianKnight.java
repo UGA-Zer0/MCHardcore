@@ -12,8 +12,9 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-import net.minecraftforge.event.world.WorldEvent;
 
 import com.zer0.hardcore.armour.ModArmour;
 import com.zer0.hardcore.items.ModItems;
@@ -76,20 +77,17 @@ public class ObsidianKnight extends EntityMob {
 		this.setCurrentItemOrArmor(3, new ItemStack(ModArmour.obsidianChestplate));
 		this.setCurrentItemOrArmor(4, new ItemStack(ModArmour.obsidianHelm));
 		
+		this.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 100, 1));
+		
 		super.onLivingUpdate();
 	}
-	
-	protected String getLivingSound()
-    {
-        return "mob.zombie.say";
-    }
 
     /**
      * Returns the sound this mob makes when it is hurt.
      */
     protected String getHurtSound()
     {
-        return "mob.zombie.hurt";
+        return "mob.blaze.hit";
     }
 
     /**
@@ -97,7 +95,7 @@ public class ObsidianKnight extends EntityMob {
      */
     protected String getDeathSound()
     {
-        return "mob.zombie.death";
+        return "mob.blaze.death";
     }
 
     protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_)

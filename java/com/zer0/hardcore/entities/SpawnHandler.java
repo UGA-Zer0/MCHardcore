@@ -8,7 +8,7 @@ public class SpawnHandler {
 	
 	public static void registerMobSpawns()
 	{
-		EntityRegistry.addSpawn(ObsidianKnight.class, 10, 3, 15, EnumCreatureType.monster, BiomeGenBase.desert);
+		EntityRegistry.addSpawn(ObsidianKnight.class, 10, 1, 3, EnumCreatureType.creature, BiomeGenBase.hell);
 	}
 
 }
