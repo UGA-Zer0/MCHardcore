@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -60,7 +61,7 @@ public class GrindingMachine extends BlockContainer {
 		{
 			return top;
 		}
-		else if(side == 3)
+		else if(side == meta)
 		{
 			return front;
 		}
@@ -86,78 +87,44 @@ public class GrindingMachine extends BlockContainer {
 		return Item.getItemFromBlock(ModBlocks.grindingMachine);
 	}
 	
-	@SideOnly(Side.CLIENT)
-	public void onBlockAdded(World world, int x, int y, int z)
-	{
-		super.onBlockAdded(world, x, y, z);
-		
-		this.direction(world, x, y, z);
-	}
-
-	private void direction(World world, int x, int y, int z) 
-	{
-		if(!world.isRemote)
-		{
-			Block direction = world.getBlock(x, y, z - 1);
-			Block direction1 = world.getBlock(x, y, z + 1);
-			Block direction2 = world.getBlock(x - 1, y, z);
-			Block direction3 = world.getBlock(x + 1, y, z);
-			
-			byte byte0 = 3;
-			
-			if(direction.func_149730_j() && direction.func_149730_j())
-			{
-				byte0 = 3;
-			}
-			
-			if(direction1.func_149730_j() && direction1.func_149730_j())
-			{
-				byte0 = 2;
-			}
-			
-			if(direction2.func_149730_j() && direction2.func_149730_j())
-			{
-				byte0 = 5;
-			}
-			
-			if(direction3.func_149730_j() && direction3.func_149730_j())
-			{
-				byte0 = 4;
-			}
-			
-			world.setBlockMetadataWithNotify(x, y, z, byte0, 2);
-		}
-	}
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+    {
+		byte b0 = 3;
+		b0=rotateBlock(b0, entity);
+		world.setBlockMetadataWithNotify(x, y, z, b0, 2);
+    }
 	
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack)
+	public byte rotateBlock(byte b0, EntityLivingBase entity)
 	{
-		int direction = MathHelper.floor_double((double) (entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		
-		if(direction == 0)
+		if((entity.rotationYaw >= 135 && entity.rotationYaw <= 181) || (entity.rotationYaw <= -135 && entity.rotationYaw >= -181))
 		{
-			world.setBlockMetadataWithNotify(x, y, z, 2, 2);
+			b0 = 3;
 		}
-		
-		if(direction == 1)
+		else if(entity.rotationYaw > -135 && entity.rotationYaw < -45)
 		{
-			world.setBlockMetadataWithNotify(x, y, z, 5, 2);
+			b0 = 4;
 		}
-		
-		if(direction == 2)
+		else if(entity.rotationYaw >= -45 && entity.rotationYaw <= 45)
 		{
-			world.setBlockMetadataWithNotify(x, y, z, 3, 2);
+			b0 = 2;
 		}
-		
-		if(direction == 3)
+		else if(entity.rotationYaw > 45 && entity.rotationYaw < 135)
 		{
-			world.setBlockMetadataWithNotify(x, y, z, 4, 2);
+			b0 = 5;
+
 		}
-		
-		if(itemstack.hasDisplayName())
+		else if(entity.rotationYaw >= 181)
 		{
-			((TileEntityGrindingMachine) world.getTileEntity(x, y, z)).furnaceName(itemstack.getDisplayName());
+			entity.rotationYaw = entity.rotationYaw - 360;
+			b0 = rotateBlock(b0, entity);
 		}
-		
+		else if(entity.rotationYaw <= -181)
+		{
+			entity.rotationYaw = entity.rotationYaw + 360;
+			b0 = rotateBlock(b0, entity);
+		}
+		return b0;
 	}
 	
 	public static void updateBlockState(boolean burning, World world, int x, int y, int z)
