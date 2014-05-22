@@ -9,11 +9,10 @@ import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 import com.zer0.hardcore.armour.ModArmour;
@@ -26,12 +25,16 @@ public class ObsidianKnight extends EntityMob {
 		super(world);
 		
 		this.tasks.addTask(0, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.0D, false));
-		this.tasks.addTask(1, new EntityAISwimming(this));
-		this.tasks.addTask(5, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+		this.tasks.addTask(1, new EntityAIAttackOnCollide(this, EntityZombie.class, 1.0D, true));
+		this.tasks.addTask(3, new EntityAISwimming(this));
+		this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
+		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
 		
 		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
+		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityZombie.class, 1, false));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+		
+		this.isImmuneToFire = true;
 	}
 	
 	@Override
@@ -42,18 +45,12 @@ public class ObsidianKnight extends EntityMob {
 		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(0.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(6.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
 	}
 	
 	public boolean canDespawn()
 	{
 		return false;
-	}
-	
-	@Override
-	protected boolean isValidLightLevel()
-	{
-		return true;
 	}
 	
 	public boolean isAIEnabled()
@@ -76,8 +73,6 @@ public class ObsidianKnight extends EntityMob {
 		this.setCurrentItemOrArmor(2, new ItemStack(ModArmour.obsidianLegs));
 		this.setCurrentItemOrArmor(3, new ItemStack(ModArmour.obsidianChestplate));
 		this.setCurrentItemOrArmor(4, new ItemStack(ModArmour.obsidianHelm));
-		
-		this.addPotionEffect(new PotionEffect(Potion.fireResistance.getId(), 100, 1));
 		
 		super.onLivingUpdate();
 	}

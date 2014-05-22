@@ -2,13 +2,6 @@ package com.zer0.hardcore;
 
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import com.google.common.reflect.Reflection;
 import com.zer0.hardcore.armour.ModArmour;
@@ -27,6 +20,14 @@ import com.zer0.hardcore.recipes.ToolRecipes;
 import com.zer0.hardcore.tools.ModTools;
 import com.zer0.hardcore.tools.VanillaTools;
 import com.zer0.hardcore.worldgen.HCWorld;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Reference.MODID, version = Reference.VERSION)
 public class MCHardcore {
@@ -65,7 +66,7 @@ public class MCHardcore {
 		HCWorld.mainRegistry();
 		
 	//REGISTER ENTITIES
-		RegisterHelper.registerEntity(ObsidianKnight.class, "obsidianKnight");
+		RegisterHelper.registerEntity(ObsidianKnight.class, "obsidianKnight", 0x800080, 0x808000);
 		
 		proxy.registerRenderer();
 		proxy.registerTileEntities();

@@ -22,17 +22,15 @@ public class RegisterHelper {
 		GameRegistry.registerItem(item, Reference.MODID + "_" + item.getUnlocalizedName().substring(5));
 	}
 	
-	public static void registerEntity(Class entityClass, String name)
+	public static void registerEntity(Class entityClass, String name, int primaryColour, int secondaryColour)
 	{
 	int entityID = EntityRegistry.findGlobalUniqueEntityId();
 	long seed = name.hashCode();
 	Random rand = new Random(seed);
-	int primaryColor = rand.nextInt() * 16777215;
-	int secondaryColor = rand.nextInt() * 16777215;
 
 	EntityRegistry.registerGlobalEntityID(entityClass, name, entityID);
 	EntityRegistry.registerModEntity(entityClass, name, entityID, MCHardcore.modInstance, 64, 1, true);
-	EntityList.entityEggs.put(Integer.valueOf(entityID), new EntityList.EntityEggInfo(entityID, primaryColor, secondaryColor));
+	EntityList.entityEggs.put(Integer.valueOf(entityID), new EntityList.EntityEggInfo(entityID, primaryColour, secondaryColour));
 	}
 
 }
