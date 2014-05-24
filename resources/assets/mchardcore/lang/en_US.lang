@@ -2,6 +2,7 @@ tile.copperOre.name=Copper Ore
 tile.tinOre.name=Tin Ore
 
 tile.grindingMachine.name=Grinding Machine
+tile.bronzeFurnace.name=Bronze Furnace
 
 entity.obsidianKnight.name=Obsidian Knight
 

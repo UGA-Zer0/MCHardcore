@@ -13,6 +13,9 @@ public class ModBlocks {
 	public static Block grindingMachine;
 	public static Block grindingMachineActive;
 	
+	public static Block bronzeFurnace;
+	public static Block bronzeFurnaceActive;
+	
 	public static void registerBlocks()
 	{
 		
@@ -23,6 +26,10 @@ public class ModBlocks {
 		grindingMachine = new GrindingMachine(false).setBlockName("grindingMachine")
 				.setCreativeTab(CreativeTabs.tabDecorations);
 		grindingMachineActive = new GrindingMachine(true).setBlockName("grindingMachineActive");
+		
+		bronzeFurnace = new BronzeFurnace(false).setBlockName("bronzeFurnace")
+				.setCreativeTab(CreativeTabs.tabDecorations);
+		bronzeFurnaceActive = new BronzeFurnace(true).setBlockName("bronzeFurnaceActive");
 				
 	//REGISTER BLOCKS
 		RegisterHelper.registerBlock(copperOre);
@@ -30,6 +37,9 @@ public class ModBlocks {
 		
 		RegisterHelper.registerBlock(grindingMachine);
 		RegisterHelper.registerBlock(grindingMachineActive);
+		
+		RegisterHelper.registerBlock(bronzeFurnace);
+		RegisterHelper.registerBlock(bronzeFurnaceActive);
 	}
 
 }

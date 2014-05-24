@@ -2,6 +2,7 @@ package com.zer0.hardcore;
 
 import com.zer0.hardcore.handlers.MCHardcoreGuiHandler;
 import com.zer0.hardcore.help.Reference;
+import com.zer0.hardcore.tile_entities.TileEntityBronzeFurnace;
 import com.zer0.hardcore.tile_entities.TileEntityGrindingMachine;
 
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -26,7 +27,8 @@ public class ServerProxy {
 	
 	public void registerTileEntities()
 	{
-		GameRegistry.registerTileEntity(TileEntityGrindingMachine.class, Reference.MODID);
+		GameRegistry.registerTileEntity(TileEntityGrindingMachine.class, Reference.MODID+"grindingMachine");
+		GameRegistry.registerTileEntity(TileEntityBronzeFurnace.class, Reference.MODID+"bronzeFurnace");
 	}
 
 }

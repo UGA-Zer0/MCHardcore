@@ -3,8 +3,8 @@ package com.zer0.hardcore;
 import net.minecraft.client.model.ModelBiped;
 
 import com.zer0.hardcore.entities.ObsidianKnight;
+import com.zer0.hardcore.models.VillagerSoldierModel;
 import com.zer0.hardcore.rendering.ObsidianKnightRenderer;
-
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends ServerProxy {

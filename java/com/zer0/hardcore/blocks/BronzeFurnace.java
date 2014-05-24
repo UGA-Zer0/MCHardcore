@@ -2,6 +2,12 @@ package com.zer0.hardcore.blocks;
 
 import java.util.Random;
 
+import com.zer0.hardcore.MCHardcore;
+import com.zer0.hardcore.help.Reference;
+import com.zer0.hardcore.tile_entities.TileEntityBronzeFurnace;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -13,19 +19,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import com.zer0.hardcore.MCHardcore;
-import com.zer0.hardcore.help.Reference;
-import com.zer0.hardcore.tile_entities.TileEntityGrindingMachine;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-public class GrindingMachine extends BlockContainer {
+public class BronzeFurnace extends BlockContainer {
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon top;
@@ -36,9 +33,14 @@ public class GrindingMachine extends BlockContainer {
 	private final boolean isBurning2;
 	private final Random random = new Random();
 
-	protected GrindingMachine(boolean isActive) {
+	protected BronzeFurnace(boolean isActive) {
 		super(Material.rock);
 		isBurning2 = isActive;
+		
+		if(isBurning2)
+		{
+			this.setLightLevel(0.5F);
+		}
 		
 		this.setHardness(10.0F);
 		setResistance(5.0F);
@@ -48,11 +50,11 @@ public class GrindingMachine extends BlockContainer {
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister iconRegister)
 	{
-		this.blockIcon = iconRegister.registerIcon(Reference.MODID + ":grindingMachineSide");
-		this.front = iconRegister.registerIcon(this.isBurning2 ? Reference.MODID + ":grindingMachineActive"
-												: Reference.MODID + ":grindingMachineInactive");
+		this.blockIcon = iconRegister.registerIcon(Reference.MODID + ":bronzeFurnaceSide");
+		this.front = iconRegister.registerIcon(this.isBurning2 ? Reference.MODID + ":bronzeFurnaceActive"
+												: Reference.MODID + ":bronzeFurnaceInactive");
 		
-		this.top = iconRegister.registerIcon(Reference.MODID + ":grindingMachineTop");
+		this.top = iconRegister.registerIcon(Reference.MODID + ":bronzeFurnaceTop");
 	}
 	
 	public IIcon getIcon(int side, int meta)
@@ -79,12 +81,12 @@ public class GrindingMachine extends BlockContainer {
 	
 	public Item getItemDropped(int par1, Random random, int par3)
 	{
-		return Item.getItemFromBlock(ModBlocks.grindingMachine);
+		return Item.getItemFromBlock(ModBlocks.bronzeFurnace);
 	}
 	
 	public Item getItem(World world, int par2, int par3, int par4)
 	{
-		return Item.getItemFromBlock(ModBlocks.grindingMachine);
+		return Item.getItemFromBlock(ModBlocks.bronzeFurnace);
 	}
 	
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
@@ -135,11 +137,11 @@ public class GrindingMachine extends BlockContainer {
 		
 		if(burning)
 		{
-			world.setBlock(x, y, z, ModBlocks.grindingMachineActive);
+			world.setBlock(x, y, z, ModBlocks.bronzeFurnaceActive);
 		}
 		else
 		{
-			world.setBlock(x, y, z, ModBlocks.grindingMachine);
+			world.setBlock(x, y, z, ModBlocks.bronzeFurnace);
 		}
 		
 		isBurning = false;
@@ -157,13 +159,13 @@ public class GrindingMachine extends BlockContainer {
 	{
 		if(!isBurning)
 		{
-			TileEntityGrindingMachine tileEntityGrindingMachine = (TileEntityGrindingMachine)world.getTileEntity(x, y, z);
+			TileEntityBronzeFurnace tileEntityBronzeFurnace = (TileEntityBronzeFurnace)world.getTileEntity(x, y, z);
 			
-			if(tileEntityGrindingMachine != null)
+			if(tileEntityBronzeFurnace != null)
 			{
-				for(int i = 0; i < tileEntityGrindingMachine.getSizeInventory(); ++i)
+				for(int i = 0; i < tileEntityBronzeFurnace.getSizeInventory(); ++i)
 				{
-					ItemStack itemstack = tileEntityGrindingMachine.getStackInSlot(i);
+					ItemStack itemstack = tileEntityBronzeFurnace.getStackInSlot(i);
 					
 					if(itemstack != null)
 					{
@@ -218,24 +220,29 @@ public class GrindingMachine extends BlockContainer {
             if (direction == 4)
             {
                 world.spawnParticle("smoke", (double)(f - f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(f - f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
             }
             else if (direction == 5)
             {
                 world.spawnParticle("smoke", (double)(f + f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(f + f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
             }
             else if (direction == 2)
             {
                 world.spawnParticle("smoke", (double)(f + f4), (double)f1, (double)(f2 - f3), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(f + f4), (double)f1, (double)(f2 - f3), 0.0D, 0.0D, 0.0D);
             }
             else if (direction == 3)
             {
                 world.spawnParticle("smoke", (double)(f + f4), (double)f1, (double)(f2 + f3), 0.0D, 0.0D, 0.0D);
+                world.spawnParticle("flame", (double)(f + f4), (double)f1, (double)(f2 + f3), 0.0D, 0.0D, 0.0D);
             }
         }
     }
 
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileEntityGrindingMachine();
+		return new TileEntityBronzeFurnace();
 	}
+
 }

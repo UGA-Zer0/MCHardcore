@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAIMoveThroughVillage;
+import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
@@ -26,34 +28,37 @@ public class ObsidianKnight extends EntityMob {
 		
 		this.tasks.addTask(0, new EntityAIAttackOnCollide(this, EntityPlayer.class, 1.0D, false));
 		this.tasks.addTask(1, new EntityAIAttackOnCollide(this, EntityZombie.class, 1.0D, true));
-		this.tasks.addTask(3, new EntityAISwimming(this));
-		this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
-		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+		this.tasks.addTask(2, new EntityAISwimming(this));
+		this.tasks.addTask(3, new EntityAIWander(this, 1.0D));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 20.0F));
+		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+        this.tasks.addTask(6, new EntityAIMoveThroughVillage(this, 1.0D, false));
 		
 		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true));
-		this.targetTasks.addTask(0, new EntityAINearestAttackableTarget(this, EntityZombie.class, 1, false));
+		this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityZombie.class, 1, false));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		
 		this.isImmuneToFire = true;
+		this.experienceValue = 48;
 	}
 	
 	@Override
 	protected void applyEntityAttributes()
 	{
 		super.applyEntityAttributes();
-		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(100.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(180.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(0.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.25D);
-		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
-	}
-	
-	public boolean canDespawn()
-	{
-		return false;
+		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.28D);
+		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);
 	}
 	
 	public boolean isAIEnabled()
+	{
+		return true;
+	}
+	
+	public boolean isValidLightLevel()
 	{
 		return true;
 	}
@@ -77,25 +82,34 @@ public class ObsidianKnight extends EntityMob {
 		super.onLivingUpdate();
 	}
 
-    /**
-     * Returns the sound this mob makes when it is hurt.
-     */
     protected String getHurtSound()
     {
-        return "mob.blaze.hit";
-    }
-
-    /**
-     * Returns the sound this mob makes on death.
-     */
-    protected String getDeathSound()
-    {
-        return "mob.blaze.death";
+        return "game.player.hurt";
     }
 
     protected void func_145780_a(int p_145780_1_, int p_145780_2_, int p_145780_3_, Block p_145780_4_)
     {
         this.playSound("mob.zombie.step", 0.15F, 1.0F);
+    }
+    
+    protected String getSwimSound()
+    {
+        return "game.player.swim";
+    }
+
+    protected String getSplashSound()
+    {
+        return "game.player.swim.splash";
+    }
+    
+    protected String getDeathSound()
+    {
+        return "game.hostile.die";
+    }
+
+    protected String func_146067_o(int p_146067_1_)
+    {
+        return p_146067_1_ > 4 ? "game.hostile.hurt.fall.big" : "game.hostile.hurt.fall.small";
     }
 
 }

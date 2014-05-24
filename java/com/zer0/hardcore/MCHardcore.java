@@ -15,6 +15,7 @@ import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.help.RegisterHelper;
 import com.zer0.hardcore.items.ModItems;
 import com.zer0.hardcore.recipes.ArmourRecipes;
+import com.zer0.hardcore.recipes.BlockRecipes;
 import com.zer0.hardcore.recipes.ItemRecipes;
 import com.zer0.hardcore.recipes.ToolRecipes;
 import com.zer0.hardcore.tools.ModTools;
@@ -61,6 +62,7 @@ public class MCHardcore {
 		ToolRecipes.initRecipes();
 		ItemRecipes.initRecipes();
 		ArmourRecipes.initRecipes();
+		BlockRecipes.initRecipes();
 		
 	//INITIALISE WORLD GEN
 		HCWorld.mainRegistry();

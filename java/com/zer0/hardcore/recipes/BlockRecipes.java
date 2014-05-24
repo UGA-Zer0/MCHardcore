@@ -1,5 +1,6 @@
 package com.zer0.hardcore.recipes;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -19,6 +20,21 @@ public class BlockRecipes {
 					"XXX",
 					'X', Items.brick,
 					'Y', Items.flint
+				});
+		
+		GameRegistry.addRecipe(new ItemStack(Blocks.obsidian), new Object[]
+				{
+					"XX",
+					"XX",
+					'X', ModItems.obsidianShard
+				});
+		
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.bronzeFurnace), new Object[]
+				{
+					"XXX",
+					"XYX",
+					"XXX",
+					'X', ModItems.bronzeIngot, 'Y', Blocks.furnace
 				});
 	}
 
