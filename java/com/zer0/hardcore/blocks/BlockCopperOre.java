@@ -2,6 +2,7 @@ package com.zer0.hardcore.blocks;
 
 import java.util.Random;
 
+import com.zer0.hardcore.creative_tabs.MCHardcoreCreativeTabs;
 import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.items.ModItems;
 
@@ -17,7 +18,7 @@ public class BlockCopperOre extends Block {
 		super(Material.rock);
 		setBlockName("copperOre");
 		setBlockTextureName(Reference.MODID + ":" + getUnlocalizedName().substring(5));
-		setCreativeTab(CreativeTabs.tabBlock);
+		setCreativeTab(MCHardcoreCreativeTabs.hcBlockTab);
 		
 		setHardness(3.0F);
 		setResistance(5.0F);

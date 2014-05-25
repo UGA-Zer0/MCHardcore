@@ -5,10 +5,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 import com.zer0.hardcore.gui.BronzeFurnaceGUI;
+import com.zer0.hardcore.gui.BronzeGrindingMachineGUI;
 import com.zer0.hardcore.gui.GrindingMachineGUI;
 import com.zer0.hardcore.inventory.ContainerBronzeFurnace;
+import com.zer0.hardcore.inventory.ContainerBronzeGM;
 import com.zer0.hardcore.inventory.ContainerGrindingMachine;
 import com.zer0.hardcore.tile_entities.TileEntityBronzeFurnace;
+import com.zer0.hardcore.tile_entities.TileEntityBronzeGM;
 import com.zer0.hardcore.tile_entities.TileEntityGrindingMachine;
 
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -23,6 +26,11 @@ public class MCHardcoreGuiHandler implements IGuiHandler {
 		{
 			TileEntityGrindingMachine tileEntityGM = (TileEntityGrindingMachine)te;
 			return new ContainerGrindingMachine(player.inventory, tileEntityGM);
+		}
+		else if(te != null && te instanceof TileEntityBronzeGM)
+		{
+			TileEntityBronzeGM teBronzeGM = (TileEntityBronzeGM)te;
+			return new ContainerBronzeGM(player.inventory, teBronzeGM);
 		}
 		else if(te != null && te instanceof TileEntityBronzeFurnace)
 		{
@@ -40,6 +48,11 @@ public class MCHardcoreGuiHandler implements IGuiHandler {
 		{
 			TileEntityGrindingMachine tileEntityGM = (TileEntityGrindingMachine)te;
 			return new GrindingMachineGUI(player.inventory, tileEntityGM);
+		}
+		else if(te != null && te instanceof TileEntityBronzeGM)
+		{
+			TileEntityBronzeGM teBronzeGM = (TileEntityBronzeGM)te;
+			return new BronzeGrindingMachineGUI(player.inventory, teBronzeGM);
 		}
 		else if(te != null && te instanceof TileEntityBronzeFurnace)
 		{

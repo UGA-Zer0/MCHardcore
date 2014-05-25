@@ -9,6 +9,7 @@ import com.zer0.hardcore.blocks.ModBlocks;
 import com.zer0.hardcore.blocks.VanillaBlocks;
 import com.zer0.hardcore.entities.ObsidianKnight;
 import com.zer0.hardcore.entities.SpawnHandler;
+import com.zer0.hardcore.entities.VillagerSoldier;
 import com.zer0.hardcore.events.BlockHarvestEvent;
 import com.zer0.hardcore.events.PlayerTickEvent;
 import com.zer0.hardcore.help.Reference;
@@ -69,6 +70,7 @@ public class MCHardcore {
 		
 	//REGISTER ENTITIES
 		RegisterHelper.registerEntity(ObsidianKnight.class, "obsidianKnight", 0x800080, 0x808000);
+		RegisterHelper.registerEntity(VillagerSoldier.class, "villagerSoldier", 0x006600, 0xCCCCCC);
 		
 		proxy.registerRenderer();
 		proxy.registerTileEntities();

@@ -1,20 +1,26 @@
 package com.zer0.hardcore.models;
 
+import com.zer0.hardcore.entities.VillagerSoldier;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
 public class VillagerSoldierModel extends ModelBase
 {
   //fields
-    ModelRenderer head;
-    ModelRenderer nose;
-    ModelRenderer body;
-    ModelRenderer rightarm;
-    ModelRenderer leftarm;
-    ModelRenderer rightleg;
-    ModelRenderer leftleg;
+    public ModelRenderer head;
+    public ModelRenderer nose;
+    public ModelRenderer body;
+    public ModelRenderer rightarm;
+    public ModelRenderer leftarm;
+    public ModelRenderer rightleg;
+    public ModelRenderer leftleg;
+    
+    public int heldItemLeft;
+    public int heldItemRight;
   
   public VillagerSoldierModel()
   {
@@ -101,6 +107,41 @@ public class VillagerSoldierModel extends ModelBase
     this.leftleg.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 1.4F * f1;
     this.rightleg.rotateAngleY = 0.0F;
     this.leftleg.rotateAngleY = 0.0F;
+    
+    if (this.heldItemLeft != 0)
+    {
+        this.leftarm.rotateAngleX = this.leftarm.rotateAngleX * 0.5F - ((float)Math.PI / 10F) * (float)this.heldItemLeft;
+    }
+
+    if (this.heldItemRight != 0)
+    {
+        this.rightarm.rotateAngleX = this.rightarm.rotateAngleX * 0.5F - ((float)Math.PI / 10F) * (float)this.heldItemRight;
+    }
+
+    this.rightarm.rotateAngleY = 0.0F;
+    this.leftarm.rotateAngleY = 0.0F;
+    float f6;
+    float f7;
+  }
+  
+  public void setLivingAnimations(EntityLivingBase entity, float par2, float par3, float par4)
+  {
+	  VillagerSoldier villagerSoldier = (VillagerSoldier) entity;
+	  
+	  if(villagerSoldier.isSitting())
+	  {
+		  this.rightleg.setRotationPoint(-2F, 12F, 0F);
+		  this.leftleg.setRotationPoint(2F, 12F, 0F);
+	      this.rightleg.rotateAngleZ = 0.1047198F;
+	      this.leftleg.rotateAngleZ = -0.1047198F;
+	  }
+	  else
+	  {
+		  this.rightleg.setRotationPoint(-2F, 12F, 0F);
+		  this.leftleg.setRotationPoint(2F, 12F, 0F);
+		  this.rightleg.rotateAngleZ = 0.0F;
+      	  this.leftleg.rotateAngleZ = 0.0F;
+	  }
   }
   
   

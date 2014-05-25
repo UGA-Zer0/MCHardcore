@@ -1,5 +1,6 @@
 package com.zer0.hardcore.items;
 
+import com.zer0.hardcore.creative_tabs.MCHardcoreCreativeTabs;
 import com.zer0.hardcore.help.Reference;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,7 +13,7 @@ public class ItemTinNugget extends Item {
 		super();
 		setUnlocalizedName("tinNugget");
 		setTextureName(Reference.MODID + ":" + getUnlocalizedName().substring(5));
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(MCHardcoreCreativeTabs.hcItemTab);
 	}
 
 }

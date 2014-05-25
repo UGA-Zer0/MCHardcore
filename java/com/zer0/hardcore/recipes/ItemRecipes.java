@@ -46,6 +46,15 @@ public class ItemRecipes {
 				});
 		GameRegistry.addSmelting(new ItemStack(ModItems.ironUnref), new ItemStack(Items.iron_ingot), 30);
 		
+		//GOLD
+		GameRegistry.addRecipe(new ItemStack(ModItems.goldCoin, 3), new Object[]
+				{
+					" X ",
+					"XXX",
+					" X ",
+					'X', Items.gold_nugget
+				});
+		
 		//DIAMOND
 		GameRegistry.addRecipe(new ItemStack(ModItems.diamondUnref), new Object[]
 				{

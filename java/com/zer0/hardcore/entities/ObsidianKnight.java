@@ -39,7 +39,7 @@ public class ObsidianKnight extends EntityMob {
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
 		
 		this.isImmuneToFire = true;
-		this.experienceValue = 48;
+		this.experienceValue = 78;
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class ObsidianKnight extends EntityMob {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(180.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(1.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.28D);
 		this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(4.0D);
 	}
@@ -65,7 +65,7 @@ public class ObsidianKnight extends EntityMob {
 	
 	protected Item getDropItem()
 	{
-		return ModItems.obsidianUnref;
+		return ModItems.obsidianShard;
 	}
 	
 	public void onLivingUpdate()

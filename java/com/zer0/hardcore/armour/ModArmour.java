@@ -1,6 +1,7 @@
 package com.zer0.hardcore.armour;
 
 import com.zer0.hardcore.MCHardcore;
+import com.zer0.hardcore.creative_tabs.MCHardcoreCreativeTabs;
 import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.help.RegisterHelper;
 
@@ -45,19 +46,19 @@ public class ModArmour {
 	{
 		//COPPER
 		copperHelm = new CopperArmour(copperArmourMaterial, MCHardcore.proxy.addArmour("copperArmour"), 0)
-		.setUnlocalizedName("copperHelm").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("copperHelm").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":copperHelm");
 	
 		copperChestplate = new CopperArmour(copperArmourMaterial, MCHardcore.proxy.addArmour("copperArmour"), 1)
-		.setUnlocalizedName("copperChestplate").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("copperChestplate").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":copperChestplate");
 	
 		copperLegs = new CopperArmour(copperArmourMaterial, MCHardcore.proxy.addArmour("copperArmour"), 2)
-		.setUnlocalizedName("copperLegs").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("copperLegs").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":copperLegs");
 	
 		copperBoots = new CopperArmour(copperArmourMaterial, MCHardcore.proxy.addArmour("copperArmour"), 3)
-		.setUnlocalizedName("copperBoots").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("copperBoots").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":copperBoots");
 	
 		GameRegistry.registerItem(copperHelm, copperHelm.getUnlocalizedName());
@@ -67,19 +68,19 @@ public class ModArmour {
 		
 		//BRONZE
 		bronzeHelm = new BronzeArmour(bronzeArmourMaterial, MCHardcore.proxy.addArmour("bronzeArmour"), 0)
-		.setUnlocalizedName("bronzeHelm").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("bronzeHelm").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":bronzeHelm");
 	
 		bronzeChestplate = new BronzeArmour(bronzeArmourMaterial, MCHardcore.proxy.addArmour("bronzeArmour"), 1)
-		.setUnlocalizedName("bronzeChestplate").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("bronzeChestplate").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":bronzeChestplate");
 	
 		bronzeLegs = new BronzeArmour(bronzeArmourMaterial, MCHardcore.proxy.addArmour("bronzeArmour"), 2)
-		.setUnlocalizedName("bronzeLegs").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("bronzeLegs").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":bronzeLegs");
 	
 		bronzeBoots = new BronzeArmour(bronzeArmourMaterial, MCHardcore.proxy.addArmour("bronzeArmour"), 3)
-		.setUnlocalizedName("bronzeBoots").setCreativeTab(CreativeTabs.tabCombat)
+		.setUnlocalizedName("bronzeBoots").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 		.setTextureName(Reference.MODID + ":bronzeBoots");
 	
 		GameRegistry.registerItem(bronzeHelm, bronzeHelm.getUnlocalizedName());
@@ -89,19 +90,19 @@ public class ModArmour {
 		
 		//OBSIDIAN
 		obsidianHelm = new ObsidianArmour(obsidianArmourMaterial, MCHardcore.proxy.addArmour("obsidianArmour"), 0)
-			.setUnlocalizedName("obsidianHelm").setCreativeTab(CreativeTabs.tabCombat)
+			.setUnlocalizedName("obsidianHelm").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 			.setTextureName(Reference.MODID + ":obsidianHelm");
 		
 		obsidianChestplate = new ObsidianArmour(obsidianArmourMaterial, MCHardcore.proxy.addArmour("obsidianArmour"), 1)
-			.setUnlocalizedName("obsidianChestplate").setCreativeTab(CreativeTabs.tabCombat)
+			.setUnlocalizedName("obsidianChestplate").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 			.setTextureName(Reference.MODID + ":obsidianChestplate");
 		
 		obsidianLegs = new ObsidianArmour(obsidianArmourMaterial, MCHardcore.proxy.addArmour("obsidianArmour"), 2)
-			.setUnlocalizedName("obsidianLegs").setCreativeTab(CreativeTabs.tabCombat)
+			.setUnlocalizedName("obsidianLegs").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 			.setTextureName(Reference.MODID + ":obsidianLegs");
 		
 		obsidianBoots = new ObsidianArmour(obsidianArmourMaterial, MCHardcore.proxy.addArmour("obsidianArmour"), 3)
-			.setUnlocalizedName("obsidianBoots").setCreativeTab(CreativeTabs.tabCombat)
+			.setUnlocalizedName("obsidianBoots").setCreativeTab(MCHardcoreCreativeTabs.hcCombatTab)
 			.setTextureName(Reference.MODID + ":obsidianBoots");
 		
 		GameRegistry.registerItem(obsidianHelm, obsidianHelm.getUnlocalizedName());

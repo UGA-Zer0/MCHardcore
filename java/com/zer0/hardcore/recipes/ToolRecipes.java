@@ -53,7 +53,7 @@ public class ToolRecipes {
 					" Y ",
 					" Y ",
 					'X', ModItems.obsidianIngot,
-					'Y', Items.stick
+					'Y', Items.blaze_rod
 				});
 		
 		
@@ -97,7 +97,7 @@ public class ToolRecipes {
 					"XY",
 					" Y",
 					'X', ModItems.obsidianIngot,
-					'Y', Items.stick
+					'Y', Items.blaze_rod
 				});
 		
 		
@@ -141,7 +141,7 @@ public class ToolRecipes {
 					" Y",
 					" Y",
 					'X', ModItems.obsidianIngot,
-					'Y', Items.stick
+					'Y', Items.blaze_rod
 				});
 		
 		
@@ -185,7 +185,7 @@ public class ToolRecipes {
 					"Y",
 					"Y",
 					'X', ModItems.obsidianIngot,
-					'Y', Items.stick
+					'Y', Items.blaze_rod
 				});
 		
 		
@@ -229,7 +229,7 @@ public class ToolRecipes {
 					"X",
 					"Y",
 					'X', ModItems.obsidianIngot,
-					'Y', Items.stick
+					'Y', Items.blaze_rod
 				});
 	}
 

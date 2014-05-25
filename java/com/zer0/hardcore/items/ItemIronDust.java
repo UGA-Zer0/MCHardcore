@@ -1,9 +1,9 @@
 package com.zer0.hardcore.items;
 
-import com.zer0.hardcore.help.Reference;
-
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+
+import com.zer0.hardcore.creative_tabs.MCHardcoreCreativeTabs;
+import com.zer0.hardcore.help.Reference;
 
 public class ItemIronDust extends Item {
 	
@@ -12,7 +12,7 @@ public class ItemIronDust extends Item {
 		super();
 		setUnlocalizedName("ironDust");
 		setTextureName(Reference.MODID + ":" + getUnlocalizedName().substring(5));
-		setCreativeTab(CreativeTabs.tabMaterials);
+		setCreativeTab(MCHardcoreCreativeTabs.hcItemTab);
 	}
 
 }

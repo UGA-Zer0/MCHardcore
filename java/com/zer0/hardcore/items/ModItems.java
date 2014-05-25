@@ -34,6 +34,9 @@ public class ModItems {
 		public static Item diamondIngot;
 		public static Item obsidianIngot;
 		
+	//OTHER ITEMS
+		public static Item goldCoin;
+		
 		public static void registerItems()
 		{
 		//ITEM INITIALISATION
@@ -65,6 +68,9 @@ public class ModItems {
 			diamondIngot = new ItemDiamondIngot();
 			obsidianIngot = new ItemObsidianIngot();
 			
+			//OTHER
+			goldCoin = new ItemGoldCoin();
+			
 		//REGISTER ITEMS
 			RegisterHelper.registerItem(copperNugget);
 			RegisterHelper.registerItem(tinNugget);
@@ -89,6 +95,8 @@ public class ModItems {
 			RegisterHelper.registerItem(copperIngot);
 			RegisterHelper.registerItem(diamondIngot);
 			RegisterHelper.registerItem(obsidianIngot);
+			
+			RegisterHelper.registerItem(goldCoin);
 		}
 
 }
