@@ -39,26 +39,27 @@ public class GuiLevelBar extends Gui
 			return;
 		}
 		
-		int xPos = 5;
+		int xPos = 4;
 		int yPos = 3;
 		
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_LIGHTING);
 		
 		this.mc.getTextureManager().bindTexture(texLoc);
-		this.drawTexturedModalRect(xPos, yPos+12, 0, 0, 51, 4);
+		this.drawTexturedModalRect(1, 1, 0, 0, 74, 37);
+		
+		this.drawTexturedModalRect(xPos, yPos+25, 74, 0, 68, 4);
 		
 		int totalLevelXp = properties.calculateNewExpToLevel(properties.getLevel());
 		int currentXp = properties.getCurrentXp();
 		
 		int xpRemaining = totalLevelXp-currentXp;
 		
-		int xpBarWidth = (int)(((float)currentXp/totalLevelXp)*49);
+		int xpBarWidth = (int)(((float)currentXp/totalLevelXp)*66);
 		
-		this.drawTexturedModalRect(xPos+1, yPos+13, 1, 4, xpBarWidth, 2);
+		this.drawTexturedModalRect(xPos+1, yPos+26, 74, 4, xpBarWidth, 2);
 		
-		this.drawString(this.mc.fontRenderer, 
-				"\u00A77Level: \u00A7d" + properties.getLevel() + " \u00A77(" + xpRemaining + " XP to level " + (properties.getLevel()+1) + ")",
-				xPos, yPos, 0xffffffff);
+		this.drawCenteredString(this.mc.fontRenderer, "\u00A7fLevel:", 38, 6, 0xffffffff);
+		this.drawCenteredString(this.mc.fontRenderer, "\u00A7a" + properties.getLevel(), 38, 16, 0xffffffff);
 	}
 }

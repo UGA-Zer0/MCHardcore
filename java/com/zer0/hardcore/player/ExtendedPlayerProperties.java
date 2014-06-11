@@ -23,7 +23,8 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	private final EntityPlayer player;
 	public int expToLevel, expOverflow, startingLevel, startingXp;
 	
-	private int base, multiplier;
+	private int base;
+	private double exponent, multiplier;
 	
 	public ExtendedPlayerProperties(EntityPlayer player)
 	{
@@ -32,10 +33,11 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		this.expOverflow = 0;
 		this.startingXp = 0;
 		
-		this.base = 1000;
-		this.multiplier = 20;
+		this.base = 2000;
+		this.multiplier = 0.1;
+		this.exponent = 3;
 		
-		this.expToLevel = this.base+(this.multiplier*this.startingLevel);
+		this.expToLevel = (int)(this.multiplier*((Math.pow((double)this.startingLevel, this.exponent))+this.base));
 		
 		this.player.getDataWatcher().addObject(LEVEL_WATCHER, this.startingLevel);
 		this.player.getDataWatcher().addObject(XP_WATCHER, this.startingXp);
@@ -157,7 +159,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	
 	public int calculateNewExpToLevel(int level)
 	{
-		return this.base + (this.multiplier * level) + this.expOverflow;
+		return (int)(this.multiplier*((Math.pow((double)level, this.exponent))+this.base)) + this.expOverflow;
 	}
 	
 	public int getCurrentXp()
