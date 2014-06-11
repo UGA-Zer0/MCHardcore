@@ -57,6 +57,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		NBTTagCompound properties = new NBTTagCompound();
 		
 		properties.setInteger("CurrentLevel", this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER));
+		properties.setInteger("CurrentExp", this.player.getDataWatcher().getWatchableObjectInt(XP_WATCHER));
 		properties.setInteger("ExpRemaining", this.expToLevel);
 		
 		tagComp.setTag(EXT_PROPERTY_NAME, properties);
@@ -70,6 +71,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		NBTTagCompound properties = (NBTTagCompound) tagComp.getTag(EXT_PROPERTY_NAME);
 		
 		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, properties.getInteger("CurrentLevel"));
+		this.player.getDataWatcher().updateObject(XP_WATCHER, properties.getInteger("CurrentExp"));
 		this.expToLevel = properties.getInteger("ExpRemaining");
 		
 		System.out.println("(TEST) Level: " +this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER)+ ", Exp to next level: " +this.expToLevel);
@@ -150,8 +152,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		expToLevel = calculateNewExpToLevel(this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER));
 		this.expOverflow = 0;
 		
-		PlayerEvent.NameFormat nf = new NameFormat(this.player, this.player.getCommandSenderName());
-		MinecraftForge.EVENT_BUS.post(nf);
+		this.player.refreshDisplayName();
 	}
 	
 	public int calculateNewExpToLevel(int level)

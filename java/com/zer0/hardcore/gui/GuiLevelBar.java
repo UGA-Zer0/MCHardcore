@@ -58,7 +58,7 @@ public class GuiLevelBar extends Gui
 		this.drawTexturedModalRect(xPos+1, yPos+13, 1, 4, xpBarWidth, 2);
 		
 		this.drawString(this.mc.fontRenderer, 
-				"\u00A77Level: " + properties.getLevel() + " \u00A78(" + xpRemaining + " XP to level " + (properties.getLevel()+1) + ")",
+				"\u00A77Level: \u00A7d" + properties.getLevel() + " \u00A77(" + xpRemaining + " XP to level " + (properties.getLevel()+1) + ")",
 				xPos, yPos, 0xffffffff);
 	}
 }
