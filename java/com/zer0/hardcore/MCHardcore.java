@@ -1,5 +1,6 @@
 package com.zer0.hardcore;
 
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -11,10 +12,13 @@ import com.zer0.hardcore.entities.ObsidianKnight;
 import com.zer0.hardcore.entities.SpawnHandler;
 import com.zer0.hardcore.entities.VillagerSoldier;
 import com.zer0.hardcore.events.BlockHarvestEvent;
+import com.zer0.hardcore.events.LevelHandler;
 import com.zer0.hardcore.events.PlayerTickEvent;
+import com.zer0.hardcore.gui.GuiLevelBar;
 import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.help.RegisterHelper;
 import com.zer0.hardcore.items.ModItems;
+import com.zer0.hardcore.packets.PacketHandler;
 import com.zer0.hardcore.recipes.ArmourRecipes;
 import com.zer0.hardcore.recipes.BlockRecipes;
 import com.zer0.hardcore.recipes.ItemRecipes;
@@ -29,6 +33,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = Reference.MODID, version = Reference.VERSION)
@@ -40,12 +45,16 @@ public class MCHardcore {
 	@Instance(Reference.MODID)
 	public static MCHardcore modInstance;
 	
+	public static final PacketHandler packetHandler = new PacketHandler();
+	
 //PRE-INIT
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		
 	//REGISTER EVENT LISTENERS		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestEvent());
+		MinecraftForge.EVENT_BUS.register(new LevelHandler());
+		
 		FMLCommonHandler.instance().bus().register(new PlayerTickEvent());
 		
 	//MODIFY VANILLA FILES
@@ -82,5 +91,13 @@ public class MCHardcore {
 	public static void load(FMLInitializationEvent event)
 	{
 		proxy.registerNetwork();
+		packetHandler.initialise();
+	}
+	
+	@EventHandler
+	public static void postInit(FMLPostInitializationEvent event)
+	{
+		packetHandler.postInitialise();
+		MinecraftForge.EVENT_BUS.register(new GuiLevelBar(Minecraft.getMinecraft()));
 	}
 }

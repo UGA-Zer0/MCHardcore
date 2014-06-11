@@ -10,18 +10,19 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 import com.zer0.hardcore.armour.ModArmour;
 import com.zer0.hardcore.items.ModItems;
 import com.zer0.hardcore.tools.ModTools;
 
-public class ObsidianKnight extends EntityMob {
+public class ObsidianKnight extends EntityZombie {
 
 	public ObsidianKnight(World world) {
 		super(world);
@@ -61,6 +62,24 @@ public class ObsidianKnight extends EntityMob {
 	public boolean isValidLightLevel()
 	{
 		return true;
+	}
+	
+	public boolean getCanSpawnHere()
+	{
+		
+		int i = MathHelper.floor_double(this.posX);
+		int j = MathHelper.floor_double(this.boundingBox.minY);
+        int k = MathHelper.floor_double(this.posZ);
+		
+		if(!(this.worldObj.canBlockSeeTheSky(i, j, k)) &&
+				j <= 40 && super.getCanSpawnHere() && this.worldObj.getBlock(i, j-1, k) == Blocks.stone)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	protected Item getDropItem()
