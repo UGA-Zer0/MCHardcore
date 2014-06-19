@@ -74,12 +74,10 @@ public class LevelHandler {
 				if(entity instanceof EntityMob)
 				{
 					expValue = (int)((mobHP*5)/4);
-					System.out.println("Adding EXP value for MOB");
 				}
 				else if(entity instanceof EntityAnimal)
 				{
 					expValue = (int)((mobHP*3)/2);
-					System.out.println("Adding EXP value for ANIMAL");
 				}
 				else if(entity instanceof EntityPlayer)
 				{
@@ -90,8 +88,6 @@ public class LevelHandler {
 					
 					expValue = 30 + modifier;
 				}
-				
-				System.out.println("Adding EXP value: "+expValue);
 				
 				playerProperties.addExp(expValue);
 				

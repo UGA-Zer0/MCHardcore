@@ -216,8 +216,6 @@ public class VillagerSoldier extends EntityTameable {
             if (par1EntityPlayer.getCommandSenderName().equalsIgnoreCase(this.getOwnerName()) && !this.worldObj.isRemote)
             {
                 this.aiSit.setSitting(!this.isSitting());
-                String sitting = this.isSitting() ? "sitting" : "un-sitting";
-                System.out.println(sitting);
                 this.isJumping = false;
                 this.setPathToEntity((PathEntity)null);
                 this.setTarget((Entity)null);
@@ -311,5 +309,13 @@ public class VillagerSoldier extends EntityTameable {
             return false;
         }
     }
+	
+	public boolean getCanSpawnHere()
+	{
+		return this.worldObj.villageCollectionObj
+				.findNearestVillage((int)this.posX, (int)this.posY, (int)this.posZ, 0)
+				.getCenter()
+				.getDistanceSquared((int)this.posX, (int)this.posY, (int)this.posZ) < 50;
+	}
 
 }

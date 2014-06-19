@@ -1,18 +1,20 @@
 package com.zer0.hardcore.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 
-import com.zer0.hardcore.help.Reference;
+import org.lwjgl.opengl.GL11;
+
 import com.zer0.hardcore.player.ExtendedPlayerProperties;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class GuiLevelBar extends Gui 
 {
 	private Minecraft mc;

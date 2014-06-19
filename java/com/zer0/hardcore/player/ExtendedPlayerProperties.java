@@ -1,18 +1,20 @@
 package com.zer0.hardcore.player;
 
-import com.zer0.hardcore.MCHardcore;
-import com.zer0.hardcore.ServerProxy;
-import com.zer0.hardcore.packets.SyncPlayerPropsPacket;
-
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.RecipeFireworks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.NameFormat;
+
+import com.zer0.hardcore.MCHardcore;
+import com.zer0.hardcore.ServerProxy;
+import com.zer0.hardcore.packets.SyncPlayerPropsPacket;
 
 public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	
@@ -153,6 +155,29 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		
 		expToLevel = calculateNewExpToLevel(this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER));
 		this.expOverflow = 0;
+		
+		if(!this.player.worldObj.isRemote)
+		{
+			
+			ItemStack stack = new ItemStack(Items.fireworks);
+			
+			EntityFireworkRocket firework = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
+			EntityFireworkRocket firework2 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
+			EntityFireworkRocket firework3 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
+			EntityFireworkRocket firework4 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
+			
+			firework.setPosition(this.player.posX, this.player.posY+1, this.player.posZ);
+			firework2.setPosition(this.player.posX+1.0D, this.player.posY+1, this.player.posZ-1.5D);
+			firework3.setPosition(this.player.posX-0.5D, this.player.posY+1, this.player.posZ+0.5D);
+			firework4.setPosition(this.player.posX+0.5D, this.player.posY+1, this.player.posZ-0.5D);
+			
+			
+			
+			this.player.worldObj.spawnEntityInWorld(firework);
+			this.player.worldObj.spawnEntityInWorld(firework2);
+			this.player.worldObj.spawnEntityInWorld(firework3);
+			this.player.worldObj.spawnEntityInWorld(firework4);
+		}
 		
 		this.player.refreshDisplayName();
 	}

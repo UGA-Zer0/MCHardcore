@@ -7,6 +7,8 @@ tile.bronzeGrindingMachine.name=Bronze Grinding Machine
 tile.bronzeFurnace.name=Bronze Furnace
 
 entity.obsidianKnight.name=Obsidian Knight
+entity.goblin.name=Goblin
+entity.villagerSoldier.name=Villager Soldier
 
 item.copperNugget.name=Copper Nugget
 item.tinNugget.name=Tin Nugget
@@ -66,3 +68,5 @@ item.obsidianHelm.name=Obsidian Helmet
 item.obsidianChestplate.name=Obsidian Chestplate
 item.obsidianLegs.name=Obsidian Platelegs
 item.obsidianBoots.name=Obsidian Boots
+
+item.goldCoin.name=Gold Coin

@@ -1,6 +1,5 @@
 package com.zer0.hardcore;
 
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -8,13 +7,14 @@ import com.google.common.reflect.Reflection;
 import com.zer0.hardcore.armour.ModArmour;
 import com.zer0.hardcore.blocks.ModBlocks;
 import com.zer0.hardcore.blocks.VanillaBlocks;
+import com.zer0.hardcore.entities.EntityOrc;
+import com.zer0.hardcore.entities.Goblin;
 import com.zer0.hardcore.entities.ObsidianKnight;
 import com.zer0.hardcore.entities.SpawnHandler;
 import com.zer0.hardcore.entities.VillagerSoldier;
 import com.zer0.hardcore.events.BlockHarvestEvent;
 import com.zer0.hardcore.events.LevelHandler;
 import com.zer0.hardcore.events.PlayerTickEvent;
-import com.zer0.hardcore.gui.GuiLevelBar;
 import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.help.RegisterHelper;
 import com.zer0.hardcore.items.ModItems;
@@ -80,6 +80,8 @@ public class MCHardcore {
 	//REGISTER ENTITIES
 		RegisterHelper.registerEntity(ObsidianKnight.class, "obsidianKnight", 0x800080, 0x808000);
 		RegisterHelper.registerEntity(VillagerSoldier.class, "villagerSoldier", 0x006600, 0xCCCCCC);
+		RegisterHelper.registerEntity(Goblin.class, "goblin", 0x006600, 0xCCCCCC);
+		RegisterHelper.registerEntity(EntityOrc.class, "orc", 0x006600, 0xCCCCCC);
 		
 		proxy.registerRenderer();
 		proxy.registerTileEntities();
@@ -98,6 +100,5 @@ public class MCHardcore {
 	public static void postInit(FMLPostInitializationEvent event)
 	{
 		packetHandler.postInitialise();
-		MinecraftForge.EVENT_BUS.register(new GuiLevelBar(Minecraft.getMinecraft()));
 	}
 }
