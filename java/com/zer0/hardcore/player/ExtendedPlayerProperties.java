@@ -1,6 +1,10 @@
 package com.zer0.hardcore.player;
 
+import java.io.Console;
+
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -9,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeFireworks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
@@ -121,8 +126,6 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		
 		this.player.getDataWatcher().updateObject(XP_WATCHER, currentXp);
 		
-		System.out.println("Exp: " +expToLevel);
-		
 		if(expToLevel <= 0)
 		{
 			if(expToLevel == 0)
@@ -151,7 +154,9 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	{
 		int level = this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER);
 		
-		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, level+1);
+		int newLevel = level+1;
+		
+		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, newLevel);
 		
 		expToLevel = calculateNewExpToLevel(this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER));
 		this.expOverflow = 0;
@@ -160,18 +165,61 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		{
 			
 			ItemStack stack = new ItemStack(Items.fireworks);
+			ItemStack stack2 = new ItemStack(Items.fireworks);
+			ItemStack stack3 = new ItemStack(Items.fireworks);
+			ItemStack stack4 = new ItemStack(Items.fireworks);
+			
+			NBTTagCompound rocketTagPre1 = new NBTTagCompound();
+			NBTTagCompound rocketTagPre2 = new NBTTagCompound();
+			NBTTagCompound rocketTagPre3 = new NBTTagCompound();
+			NBTTagCompound rocketTagPre4 = new NBTTagCompound();
+			
+			byte type = 2;
+			rocketTagPre1.setByte("Type", type);
+			rocketTagPre2.setByte("Type", type);
+			rocketTagPre3.setByte("Type", type);
+			rocketTagPre4.setByte("Type", type);
+			
+			int[] colours = new int[1];
+			colours[0] = 5;
+			rocketTagPre1.setIntArray("Colors", colours);
+			
+			int[] colours2 = new int[1];
+			colours2[0] = 11;
+			rocketTagPre2.setIntArray("Colors", colours2);
+			
+			int[] colours3 = new int[1];
+			colours3[0] = 14;
+			rocketTagPre3.setIntArray("Colors", colours3);
+			
+			int[] colours4 = new int[1];
+			colours4[0] = 2;
+			rocketTagPre3.setIntArray("Colors", colours4);
+			
+			NBTTagCompound rocketTag1 = new NBTTagCompound();
+			NBTTagCompound rocketTag2 = new NBTTagCompound();
+			NBTTagCompound rocketTag3 = new NBTTagCompound();
+			NBTTagCompound rocketTag4 = new NBTTagCompound();
+			
+			rocketTag1.setTag("Explosion", rocketTagPre1);
+			rocketTag2.setTag("Explosion", rocketTagPre2);
+			rocketTag3.setTag("Explosion", rocketTagPre3);
+			rocketTag4.setTag("Explosion", rocketTagPre4);
+			
+			stack.setTagCompound(rocketTag1);
+			stack2.setTagCompound(rocketTag2);
+			stack3.setTagCompound(rocketTag3);
+			stack4.setTagCompound(rocketTag4);
 			
 			EntityFireworkRocket firework = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
-			EntityFireworkRocket firework2 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
-			EntityFireworkRocket firework3 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
-			EntityFireworkRocket firework4 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack);
+			EntityFireworkRocket firework2 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack2);
+			EntityFireworkRocket firework3 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack3);
+			EntityFireworkRocket firework4 = new EntityFireworkRocket(this.player.worldObj, this.player.posX, this.player.posY+1, this.player.posZ, stack4);
 			
 			firework.setPosition(this.player.posX, this.player.posY+1, this.player.posZ);
 			firework2.setPosition(this.player.posX+1.0D, this.player.posY+1, this.player.posZ-1.5D);
 			firework3.setPosition(this.player.posX-0.5D, this.player.posY+1, this.player.posZ+0.5D);
 			firework4.setPosition(this.player.posX+0.5D, this.player.posY+1, this.player.posZ-0.5D);
-			
-			
 			
 			this.player.worldObj.spawnEntityInWorld(firework);
 			this.player.worldObj.spawnEntityInWorld(firework2);
@@ -180,6 +228,10 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		}
 		
 		this.player.refreshDisplayName();
+		this.player.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20 + Math.floor((level+1)/2));
+
+		this.player.addChatMessage(new ChatComponentText("\u00A7aCongratulations, you reached level "+newLevel));
+
 	}
 	
 	public int calculateNewExpToLevel(int level)

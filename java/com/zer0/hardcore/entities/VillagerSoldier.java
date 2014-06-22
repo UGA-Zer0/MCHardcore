@@ -28,6 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.village.VillageCollection;
 import net.minecraft.world.World;
 
 import com.zer0.hardcore.armour.ModArmour;
@@ -312,10 +313,15 @@ public class VillagerSoldier extends EntityTameable {
 	
 	public boolean getCanSpawnHere()
 	{
-		return this.worldObj.villageCollectionObj
-				.findNearestVillage((int)this.posX, (int)this.posY, (int)this.posZ, 0)
-				.getCenter()
-				.getDistanceSquared((int)this.posX, (int)this.posY, (int)this.posZ) < 50;
+		VillageCollection villageCollection = this.worldObj.villageCollectionObj;
+		if(villageCollection.findNearestVillage((int)this.posX, (int)this.posY, (int)this.posZ, 20) != null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 }

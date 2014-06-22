@@ -18,18 +18,18 @@ public class SpawnHandler {
 		BiomeGenBase[] orcSpawns = new BiomeGenBase[]{BiomeGenBase.swampland, 
 													  BiomeGenBase.roofedForest};
 		
-		BiomeGenBase[] villagerSoldierSpawns = new BiomeGenBase[]{BiomeGenBase.plains, 
-																  BiomeGenBase.desert, 
-																  BiomeGenBase.desertHills,
-																  BiomeGenBase.extremeHills,
-																  BiomeGenBase.extremeHillsEdge,
-																  BiomeGenBase.extremeHillsPlus,
-																  BiomeGenBase.forest};
+		//BiomeGenBase[] villagerSoldierSpawns = new BiomeGenBase[]{BiomeGenBase.plains, 
+		//														  BiomeGenBase.desert, 
+		//														  BiomeGenBase.desertHills,
+		//														  BiomeGenBase.extremeHills,
+		//														  BiomeGenBase.extremeHillsEdge,
+		//														  BiomeGenBase.extremeHillsPlus,
+		//														  BiomeGenBase.forest};
 		
 		EntityRegistry.addSpawn(ObsidianKnight.class, 30, 1, 2, EnumCreatureType.monster, obsidianKnightSpawns);
 		EntityRegistry.addSpawn(Goblin.class, 30, 10, 14, EnumCreatureType.monster, goblinSpawns);
-		EntityRegistry.addSpawn(EntityOrc.class, 15, 1, 1, EnumCreatureType.monster, orcSpawns);
-		EntityRegistry.addSpawn(VillagerSoldier.class, 100, 1, 2, EnumCreatureType.ambient, villagerSoldierSpawns);
+		EntityRegistry.addSpawn(EntityOrc.class, 5, 1, 1, EnumCreatureType.monster, orcSpawns);
+		//EntityRegistry.addSpawn(VillagerSoldier.class, 100, 1, 2, EnumCreatureType.ambient, villagerSoldierSpawns);
 	}
 
 }
