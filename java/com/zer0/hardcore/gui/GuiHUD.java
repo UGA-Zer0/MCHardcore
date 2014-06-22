@@ -18,15 +18,14 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiHealthBar extends Gui 
+public class GuiHUD extends Gui 
 {
 	private Minecraft mc;
-	private static final ResourceLocation healthBarTexture = new ResourceLocation("mchardcore", "textures/gui/health_bar.png");
-	private static final ResourceLocation hungerBarTexture = new ResourceLocation("mchardcore", "textures/gui/hunger_bar.png");
+	private static final ResourceLocation hudTexture = new ResourceLocation("mchardcore", "textures/gui/hud.png");
 	private static final ResourceLocation armourBarTexture = new ResourceLocation("mchardcore", "textures/gui/armour_bar.png");
 	private static final ResourceLocation airBarTexture = new ResourceLocation("mchardcore", "textures/gui/air_bar.png");
 	
-	public GuiHealthBar(Minecraft mc)
+	public GuiHUD(Minecraft mc)
 	{
 		super();
 		this.mc = mc;
@@ -35,9 +34,19 @@ public class GuiHealthBar extends Gui
 	@SubscribeEvent
 	public void onRenderHealthBar(RenderGameOverlayEvent.Pre event)
 	{
-		if(event.type.equals(ElementType.HEALTH))
+		
+		if(event.type.equals(ElementType.HEALTH) && event.isCancelable())
 		{
 			event.setCanceled(true);
+			
+			this.mc.getTextureManager().bindTexture(hudTexture);
+			
+			//GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
+		    //GL11.glEnable(GL11.GL_ALPHA_TEST);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			//GL11.glDisable(GL11.GL_LIGHTING);
+			
+			this.drawTexturedModalRect(5, 5, 0, 0, 118, 38);
 			
 			EntityPlayer player = this.mc.thePlayer;
 			
@@ -47,6 +56,12 @@ public class GuiHealthBar extends Gui
 			{
 				return;
 			}
+			
+			int totalLevelXp = properties.calculateNewExpToLevel(properties.getLevel());
+			int currentXp = properties.getCurrentXp();
+			
+			int xpRemaining = totalLevelXp-currentXp;
+			
 			//SET BAR WIDTHS
 			float health = player.getHealth();
 			float maxHealth = player.getMaxHealth();
@@ -54,26 +69,30 @@ public class GuiHealthBar extends Gui
 			int armour = player.getTotalArmorValue();
 			
 			int hungerBarWidth = (int)(((float)stamina/20)*79);
-			
 			int armourBarWidth = (int)(((float)armour/20)*79);
-			
 			int healthBarWidth = (int)(((float)health/maxHealth)*79);
+			int xpBarWidth = (int)(((float)currentXp/totalLevelXp)*79);
+
+		//DRAW BARS
+			//HEALTH
+			this.drawTexturedModalRect(41, 13, 0, 52, healthBarWidth, 7);
 			
-			//SET SCREEN POSITION
+			Entity mount = player.ridingEntity;
 			
+			//HUNGER
+			if(mount == null)
+			{
+				this.drawTexturedModalRect(41, 21, 0, 45, hungerBarWidth, 7);
+			}
+			
+			//EXP
+			this.drawTexturedModalRect(41, 29, 0, 38, xpBarWidth, 7);
+			
+			//SET SCREEN POS FOR ARMOUR AND AIR
 			int xPos = event.resolution.getScaledWidth() / 2 - 91;
 			int yPos = event.resolution.getScaledHeight() - 40;
 			
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			
-			//DRAW BARS
-			
-			this.mc.getTextureManager().bindTexture(healthBarTexture);
-			
-			this.drawTexturedModalRect(xPos, yPos, 0, 0, 81, 9);
-			this.drawTexturedModalRect(xPos+1, yPos+1, 0, 9, healthBarWidth, 7);
-			
+			//ARMOUR BAR
 			if(armour > 0)
 			{
 				this.mc.getTextureManager().bindTexture(armourBarTexture);
@@ -82,16 +101,7 @@ public class GuiHealthBar extends Gui
 				this.drawTexturedModalRect(xPos+1, yPos-9, 0, 9, armourBarWidth, 7);
 			}
 			
-			Entity mount = player.ridingEntity;
-			
-			if(mount == null)
-			{
-				this.mc.getTextureManager().bindTexture(hungerBarTexture);
-				
-				this.drawTexturedModalRect(xPos+101, yPos, 0, 0, 81, 9);
-				this.drawTexturedModalRect(xPos+102, yPos+1, 0, 9, hungerBarWidth, 7);
-			}
-			
+			//AIR BAR
 			if(player.isInsideOfMaterial(Material.water))
 			{
 				int air = player.getAir();
@@ -103,10 +113,10 @@ public class GuiHealthBar extends Gui
 				this.drawTexturedModalRect(xPos+102, yPos-9, 0, 9, airBarWidth, 7);
 			}
 			
-		}
-		else
-		{
-			event.setCanceled(false);
+
+			this.drawCenteredString(this.mc.fontRenderer, "\u00A7a"+properties.getLevel(), 23, 20, 0xffffffff);
+			
+			GL11.glColor4f(1, 1, 1, 0);
 		}
 	}
 }

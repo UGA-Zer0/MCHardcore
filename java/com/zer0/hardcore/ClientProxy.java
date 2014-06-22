@@ -8,8 +8,7 @@ import com.zer0.hardcore.entities.EntityOrc;
 import com.zer0.hardcore.entities.Goblin;
 import com.zer0.hardcore.entities.ObsidianKnight;
 import com.zer0.hardcore.entities.VillagerSoldier;
-import com.zer0.hardcore.gui.GuiHealthBar;
-import com.zer0.hardcore.gui.GuiLevelBar;
+import com.zer0.hardcore.gui.GuiHUD;
 import com.zer0.hardcore.models.ModelGoblinModel;
 import com.zer0.hardcore.models.OrcModel;
 import com.zer0.hardcore.rendering.GoblinRenderer;
@@ -28,8 +27,7 @@ public class ClientProxy extends ServerProxy {
 		RenderingRegistry.registerEntityRenderingHandler(Goblin.class, new GoblinRenderer(new ModelGoblinModel(), 0.5F));
 		RenderingRegistry.registerEntityRenderingHandler(EntityOrc.class, new OrcRenderer(new OrcModel(), 0.5F));
 		
-		MinecraftForge.EVENT_BUS.register(new GuiLevelBar(Minecraft.getMinecraft()));
-		MinecraftForge.EVENT_BUS.register(new GuiHealthBar(Minecraft.getMinecraft()));
+		MinecraftForge.EVENT_BUS.register(new GuiHUD(Minecraft.getMinecraft()));
 	}
 	
 	public int addArmour(String armour)
