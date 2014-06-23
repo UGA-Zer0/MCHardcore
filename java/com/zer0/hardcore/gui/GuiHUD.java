@@ -22,7 +22,6 @@ public class GuiHUD extends Gui
 {
 	private Minecraft mc;
 	private static final ResourceLocation hudTexture = new ResourceLocation("mchardcore", "textures/gui/hud.png");
-	private static final ResourceLocation armourBarTexture = new ResourceLocation("mchardcore", "textures/gui/armour_bar.png");
 	private static final ResourceLocation airBarTexture = new ResourceLocation("mchardcore", "textures/gui/air_bar.png");
 	
 	public GuiHUD(Minecraft mc)
@@ -41,10 +40,10 @@ public class GuiHUD extends Gui
 			
 			this.mc.getTextureManager().bindTexture(hudTexture);
 			
-			//GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
-		    //GL11.glEnable(GL11.GL_ALPHA_TEST);
+			GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
+		    GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			//GL11.glDisable(GL11.GL_LIGHTING);
+			GL11.glDisable(GL11.GL_LIGHTING);
 			
 			this.drawTexturedModalRect(5, 5, 0, 0, 118, 38);
 			
@@ -69,7 +68,7 @@ public class GuiHUD extends Gui
 			int armour = player.getTotalArmorValue();
 			
 			int hungerBarWidth = (int)(((float)stamina/20)*79);
-			int armourBarWidth = (int)(((float)armour/20)*79);
+			int armourBarHeight = (int)(((float)armour/20)*20);
 			int healthBarWidth = (int)(((float)health/maxHealth)*79);
 			int xpBarWidth = (int)(((float)currentXp/totalLevelXp)*79);
 
@@ -95,10 +94,10 @@ public class GuiHUD extends Gui
 			//ARMOUR BAR
 			if(armour > 0)
 			{
-				this.mc.getTextureManager().bindTexture(armourBarTexture);
+				int offset = 20 - armourBarHeight;
 				
-				this.drawTexturedModalRect(xPos, yPos-10, 0, 0, 81, 9);
-				this.drawTexturedModalRect(xPos+1, yPos-9, 0, 9, armourBarWidth, 7);
+				this.drawTexturedModalRect(122, 12, 0, 59, 8, 24);
+				this.drawTexturedModalRect(123, 14+offset, 8, 61, 5, armourBarHeight);
 			}
 			
 			//AIR BAR
