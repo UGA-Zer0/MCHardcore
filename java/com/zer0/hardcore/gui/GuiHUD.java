@@ -40,8 +40,6 @@ public class GuiHUD extends Gui
 			
 			this.mc.getTextureManager().bindTexture(hudTexture);
 			
-			GL11.glPushAttrib(GL11.GL_ENABLE_BIT);
-		    GL11.glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glDisable(GL11.GL_LIGHTING);
 			
