@@ -18,7 +18,8 @@ import com.zer0.hardcore.events.PlayerTickEvent;
 import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.help.RegisterHelper;
 import com.zer0.hardcore.items.ModItems;
-import com.zer0.hardcore.packets.PacketHandler;
+import com.zer0.hardcore.packets.LevelSyncHandler;
+import com.zer0.hardcore.packets.LevelSyncPacket;
 import com.zer0.hardcore.recipes.ArmourRecipes;
 import com.zer0.hardcore.recipes.BlockRecipes;
 import com.zer0.hardcore.recipes.ItemRecipes;
@@ -35,6 +36,9 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = Reference.MODID, version = Reference.VERSION)
 public class MCHardcore {
@@ -45,11 +49,17 @@ public class MCHardcore {
 	@Instance(Reference.MODID)
 	public static MCHardcore modInstance;
 	
-	public static final PacketHandler packetHandler = new PacketHandler();
+	public static SimpleNetworkWrapper network;
 	
 //PRE-INIT
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		
+	//REGISTER NETWORK WRAPPER
+		network = NetworkRegistry.INSTANCE.newSimpleChannel(Reference.MODID);
+		
+	//REGISTER PACKETS
+		network.registerMessage(LevelSyncHandler.class, LevelSyncPacket.class, 0, Side.CLIENT);
 		
 	//REGISTER EVENT LISTENERS		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestEvent());
@@ -93,12 +103,11 @@ public class MCHardcore {
 	public static void load(FMLInitializationEvent event)
 	{
 		proxy.registerNetwork();
-		packetHandler.initialise();
 	}
 	
 	@EventHandler
 	public static void postInit(FMLPostInitializationEvent event)
 	{
-		packetHandler.postInitialise();
+		
 	}
 }

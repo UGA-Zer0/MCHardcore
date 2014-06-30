@@ -19,11 +19,13 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 
 import com.zer0.hardcore.MCHardcore;
 import com.zer0.hardcore.ServerProxy;
-import com.zer0.hardcore.packets.SyncPlayerPropsPacket;
+import com.zer0.hardcore.packets.LevelSyncPacket;
+
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	
-	public static final String EXT_PROPERTY_NAME = "ExtendedPlayer";
+	public static final String EXT_PROPERTY_NAME = "MCHC-PlayerLevelProperties";
 	public static final int LEVEL_WATCHER = 20;
 	public static final int XP_WATCHER = 21;
 	
@@ -70,8 +72,6 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		properties.setInteger("ExpRemaining", this.expToLevel);
 		
 		tagComp.setTag(EXT_PROPERTY_NAME, properties);
-		
-		System.out.println("(TEST) SAVING DATA");
 	}
 	
 	@Override
@@ -82,34 +82,6 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, properties.getInteger("CurrentLevel"));
 		this.player.getDataWatcher().updateObject(XP_WATCHER, properties.getInteger("CurrentExp"));
 		this.expToLevel = properties.getInteger("ExpRemaining");
-		
-		System.out.println("(TEST) Level: " +this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER)+ ", Exp to next level: " +this.expToLevel);
-	}
-	
-	private static final String getSaveKey(EntityPlayer player)
-	{
-		return player.getCommandSenderName() + ":" + EXT_PROPERTY_NAME;
-	}
-	
-	public static final void saveProxyData(EntityPlayer player)
-	{
-		ExtendedPlayerProperties playerData = ExtendedPlayerProperties.fetchProperties(player);
-		NBTTagCompound savedData = new NBTTagCompound();
-		playerData.saveNBTData(savedData);
-		ServerProxy.storeEntityData(getSaveKey(player), savedData);
-	}
-	
-	public static final void loadProxyData(EntityPlayer player)
-	{
-		ExtendedPlayerProperties playerData = ExtendedPlayerProperties.fetchProperties(player);
-		NBTTagCompound savedData = ServerProxy.getEntityData(getSaveKey(player));
-		
-		if (savedData != null)
-		{
-			playerData.loadNBTData(savedData);	
-		}
-		
-		MCHardcore.packetHandler.sendTo(new SyncPlayerPropsPacket(player), (EntityPlayerMP) player);
 	}
 	
 	@Override
@@ -133,6 +105,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 				this.player.getDataWatcher().updateObject(XP_WATCHER, 0);
 				
 				levelUp();
+				MCHardcore.network.sendTo(new LevelSyncPacket(player), (EntityPlayerMP)this.player);
 			}
 			else if(expToLevel < 0)
 			{
@@ -141,6 +114,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 				this.player.getDataWatcher().updateObject(XP_WATCHER, expToLevel*-1);
 				
 				levelUp();
+				MCHardcore.network.sendTo(new LevelSyncPacket(player), (EntityPlayerMP)this.player);
 			}
 		}
 	}

@@ -51,7 +51,6 @@ public class LevelHandler {
 			NBTTagCompound playerData = new NBTTagCompound();
 			((ExtendedPlayerProperties)(event.entity.getExtendedProperties(ExtendedPlayerProperties.EXT_PROPERTY_NAME))).saveNBTData(playerData);
 			ServerProxy.storeEntityData(((EntityPlayer)event.entity).getCommandSenderName(), playerData);
-			ExtendedPlayerProperties.saveProxyData((EntityPlayer)event.entity);
 			
 		}
 		
