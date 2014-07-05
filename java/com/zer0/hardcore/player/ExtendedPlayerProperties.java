@@ -19,6 +19,7 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 
 import com.zer0.hardcore.MCHardcore;
 import com.zer0.hardcore.ServerProxy;
+import com.zer0.hardcore.packets.LevelSyncMP;
 import com.zer0.hardcore.packets.LevelSyncPacket;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
@@ -106,6 +107,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 				
 				levelUp();
 				MCHardcore.network.sendTo(new LevelSyncPacket(player), (EntityPlayerMP)this.player);
+				MCHardcore.network.sendToAll(new LevelSyncMP(this.getLevel(), player.getEntityId()));
 			}
 			else if(expToLevel < 0)
 			{
@@ -115,6 +117,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 				
 				levelUp();
 				MCHardcore.network.sendTo(new LevelSyncPacket(player), (EntityPlayerMP)this.player);
+				MCHardcore.network.sendToAll(new LevelSyncMP(this.getLevel(), player.getEntityId()));
 			}
 		}
 	}
@@ -122,6 +125,12 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	public int getLevel()
 	{
 		return this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER);
+	}
+	
+	public void setLevel(int i)
+	{
+		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, i-1);
+		levelUp();
 	}
 	
 	public void levelUp()

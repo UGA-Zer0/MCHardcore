@@ -2,6 +2,8 @@ package com.zer0.hardcore;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.zer0.hardcore.entities.EntityOrc;
@@ -11,6 +13,7 @@ import com.zer0.hardcore.entities.VillagerSoldier;
 import com.zer0.hardcore.gui.GuiHUD;
 import com.zer0.hardcore.models.ModelGoblinModel;
 import com.zer0.hardcore.models.OrcModel;
+import com.zer0.hardcore.player.ExtendedPlayerProperties;
 import com.zer0.hardcore.rendering.GoblinRenderer;
 import com.zer0.hardcore.rendering.ObsidianKnightRenderer;
 import com.zer0.hardcore.rendering.OrcRenderer;
@@ -19,6 +22,15 @@ import com.zer0.hardcore.rendering.VillagerSoldierRenderer;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends ServerProxy {
+	
+	public static void levelUpdate(int level, int entityId)
+	{
+		World world = Minecraft.getMinecraft().theWorld;
+		EntityPlayer player = (EntityPlayer)world.getEntityByID(entityId);
+		ExtendedPlayerProperties properties = ExtendedPlayerProperties.fetchProperties(player);
+		properties.setLevel(level);
+		player.refreshDisplayName();
+	}
 	
 	public void registerRenderer()
 	{

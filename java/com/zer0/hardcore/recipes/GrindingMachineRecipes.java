@@ -27,7 +27,7 @@ public class GrindingMachineRecipes {
 		this.addRecipe(ModItems.copperNugget, new ItemStack(ModItems.copperDust), 0.8F);
 		this.addRecipe(ModItems.tinNugget, new ItemStack(ModItems.tinDust), 0.8F);
 		this.addRecipe(ModItems.ironNugget, new ItemStack(ModItems.ironDust), 0.8F);
-		//this.addRecipe(Items.gold_nugget, new ItemStack(ModItems.goldDust), 0.8F); <--TO BE ADDED - NEED TO FIGURE OUT HOW GOLD WILL BE IMPLELEMTED
+		//this.addRecipe(Items.gold_nugget, new ItemStack(ModItems.goldDust), 0.8F); <--TO BE ADDED - NEED TO FIGURE OUT HOW GOLD WILL BE IMPLEMENTED
 	}
 	
 	public ItemStack getSmeltingResult(ItemStack itemstack)

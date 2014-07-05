@@ -1,5 +1,8 @@
 package com.zer0.hardcore;
 
+import net.minecraft.command.ICommandManager;
+import net.minecraft.command.ServerCommandManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -7,6 +10,7 @@ import com.google.common.reflect.Reflection;
 import com.zer0.hardcore.armour.ModArmour;
 import com.zer0.hardcore.blocks.ModBlocks;
 import com.zer0.hardcore.blocks.VanillaBlocks;
+import com.zer0.hardcore.commands.SetLevelCommand;
 import com.zer0.hardcore.entities.EntityOrc;
 import com.zer0.hardcore.entities.Goblin;
 import com.zer0.hardcore.entities.ObsidianKnight;
@@ -19,6 +23,8 @@ import com.zer0.hardcore.help.Reference;
 import com.zer0.hardcore.help.RegisterHelper;
 import com.zer0.hardcore.items.ModItems;
 import com.zer0.hardcore.packets.LevelSyncHandler;
+import com.zer0.hardcore.packets.LevelSyncHandlerMP;
+import com.zer0.hardcore.packets.LevelSyncMP;
 import com.zer0.hardcore.packets.LevelSyncPacket;
 import com.zer0.hardcore.recipes.ArmourRecipes;
 import com.zer0.hardcore.recipes.BlockRecipes;
@@ -36,6 +42,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
@@ -60,6 +67,7 @@ public class MCHardcore {
 		
 	//REGISTER PACKETS
 		network.registerMessage(LevelSyncHandler.class, LevelSyncPacket.class, 0, Side.CLIENT);
+		network.registerMessage(LevelSyncHandlerMP.class, LevelSyncMP.class, 1, Side.CLIENT);
 		
 	//REGISTER EVENT LISTENERS		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestEvent());
@@ -109,5 +117,16 @@ public class MCHardcore {
 	public static void postInit(FMLPostInitializationEvent event)
 	{
 		
+	}
+	
+	@EventHandler
+	public void serverLoad(FMLServerStartingEvent event)
+	{
+		 MinecraftServer server = MinecraftServer.getServer();
+	     ICommandManager command = server.getCommandManager();
+	     ServerCommandManager manager = (ServerCommandManager) command;
+	     
+	     //REGISTER COMMANDS
+	     manager.registerCommand(new SetLevelCommand());
 	}
 }
