@@ -9,6 +9,7 @@ tile.bronzeFurnace.name=Bronze Furnace
 entity.obsidianKnight.name=Obsidian Knight
 entity.goblin.name=Goblin
 entity.villagerSoldier.name=Villager Soldier
+entity.orc.name=Orc
 
 item.copperNugget.name=Copper Nugget
 item.tinNugget.name=Tin Nugget
@@ -70,3 +71,6 @@ item.obsidianLegs.name=Obsidian Platelegs
 item.obsidianBoots.name=Obsidian Boots
 
 item.goldCoin.name=Gold Coin
+
+key.skillsgui.desc=Open Skills GUI
+key.mchardcore.category=MCHardcore Keys

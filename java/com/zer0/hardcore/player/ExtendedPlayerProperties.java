@@ -27,8 +27,15 @@ import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	
 	public static final String EXT_PROPERTY_NAME = "MCHC-PlayerLevelProperties";
+	
 	public static final int LEVEL_WATCHER = 20;
 	public static final int XP_WATCHER = 21;
+	public static final int STR_WATCHER = 22;
+	public static final int ATT_WATCHER = 23;
+	public static final int DEX_WATCHER = 24;
+	public static final int DEF_WATCHER = 25;
+	
+	public static final int SKILLPOINTS = 26;
 	
 	private final EntityPlayer player;
 	public int expToLevel, expOverflow, startingLevel, startingXp;
@@ -51,6 +58,11 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		
 		this.player.getDataWatcher().addObject(LEVEL_WATCHER, this.startingLevel);
 		this.player.getDataWatcher().addObject(XP_WATCHER, this.startingXp);
+		this.player.getDataWatcher().addObject(STR_WATCHER, 1);
+		this.player.getDataWatcher().addObject(ATT_WATCHER, 1);
+		this.player.getDataWatcher().addObject(DEF_WATCHER, 1);
+		this.player.getDataWatcher().addObject(DEX_WATCHER, 1);
+		this.player.getDataWatcher().addObject(SKILLPOINTS, 0);
 	}
 	
 	public static final void register(EntityPlayer player)
@@ -70,7 +82,14 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		
 		properties.setInteger("CurrentLevel", this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER));
 		properties.setInteger("CurrentExp", this.player.getDataWatcher().getWatchableObjectInt(XP_WATCHER));
+		properties.setInteger("StrLevel", this.player.getDataWatcher().getWatchableObjectInt(STR_WATCHER));
+		properties.setInteger("AttLevel", this.player.getDataWatcher().getWatchableObjectInt(ATT_WATCHER));
+		properties.setInteger("DexLevel", this.player.getDataWatcher().getWatchableObjectInt(DEX_WATCHER));
+		properties.setInteger("DefLevel", this.player.getDataWatcher().getWatchableObjectInt(DEF_WATCHER));
+		properties.setInteger("SkillPoints", this.player.getDataWatcher().getWatchableObjectInt(SKILLPOINTS));
 		properties.setInteger("ExpRemaining", this.expToLevel);
+		
+		System.out.println("Saving data");
 		
 		tagComp.setTag(EXT_PROPERTY_NAME, properties);
 	}
@@ -82,13 +101,49 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		
 		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, properties.getInteger("CurrentLevel"));
 		this.player.getDataWatcher().updateObject(XP_WATCHER, properties.getInteger("CurrentExp"));
+		
+		this.player.getDataWatcher().updateObject(STR_WATCHER, properties.getInteger("StrLevel"));
+		this.player.getDataWatcher().updateObject(ATT_WATCHER, properties.getInteger("AttLevel"));
+		this.player.getDataWatcher().updateObject(DEF_WATCHER, properties.getInteger("DefLevel"));
+		this.player.getDataWatcher().updateObject(DEX_WATCHER, properties.getInteger("DexLevel"));
+		
+		this.player.getDataWatcher().updateObject(SKILLPOINTS, properties.getInteger("SkillPoints"));
 		this.expToLevel = properties.getInteger("ExpRemaining");
+		
+		System.out.println("Loading data");
 	}
 	
 	@Override
 	public void init(Entity entity, World world)
 	{
 
+	}
+	
+	public int getStat(String stat)
+	{
+
+		if(stat.equals("str"))
+		{
+			return this.player.getDataWatcher().getWatchableObjectInt(STR_WATCHER);
+		}
+		else if(stat.equals("att"))
+		{
+			return this.player.getDataWatcher().getWatchableObjectInt(ATT_WATCHER);
+		}
+		else if(stat.equals("def"))
+		{
+			return this.player.getDataWatcher().getWatchableObjectInt(DEF_WATCHER);
+		}
+		else if(stat.equals("dex"))
+		{
+			return this.player.getDataWatcher().getWatchableObjectInt(DEX_WATCHER);
+		}
+		return 0;
+	}
+	
+	public int getSkillpoints()
+	{
+		return this.player.getDataWatcher().getWatchableObjectInt(SKILLPOINTS);
 	}
 	
 	public void addExp(int amount)
@@ -104,21 +159,14 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 			if(expToLevel == 0)
 			{
 				this.player.getDataWatcher().updateObject(XP_WATCHER, 0);
-				
-				levelUp();
-				MCHardcore.network.sendTo(new LevelSyncPacket(player), (EntityPlayerMP)this.player);
-				MCHardcore.network.sendToAll(new LevelSyncMP(this.getLevel(), player.getEntityId()));
 			}
 			else if(expToLevel < 0)
 			{
 				this.expOverflow = expToLevel;
 				
 				this.player.getDataWatcher().updateObject(XP_WATCHER, expToLevel*-1);
-				
-				levelUp();
-				MCHardcore.network.sendTo(new LevelSyncPacket(player), (EntityPlayerMP)this.player);
-				MCHardcore.network.sendToAll(new LevelSyncMP(this.getLevel(), player.getEntityId()));
 			}
+			levelUp();
 		}
 	}
 	
@@ -129,8 +177,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 	
 	public void setLevel(int i)
 	{
-		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, i-1);
-		levelUp();
+		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, i);
 	}
 	
 	public void levelUp()
@@ -141,7 +188,7 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 		
 		this.player.getDataWatcher().updateObject(LEVEL_WATCHER, newLevel);
 		
-		expToLevel = calculateNewExpToLevel(this.player.getDataWatcher().getWatchableObjectInt(LEVEL_WATCHER));
+		expToLevel = calculateNewExpToLevel(newLevel);
 		this.expOverflow = 0;
 		
 		if(!this.player.worldObj.isRemote)
@@ -210,11 +257,75 @@ public class ExtendedPlayerProperties implements IExtendedEntityProperties {
 			this.player.worldObj.spawnEntityInWorld(firework4);
 		}
 		
+		MCHardcore.network.sendTo(new LevelSyncPacket(player), (EntityPlayerMP)this.player);
+		MCHardcore.network.sendToAll(new LevelSyncMP(this.getLevel(), player.getEntityId()));
+		
 		this.player.refreshDisplayName();
 		this.player.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20 + Math.floor((level+1)/2));
 
-		this.player.addChatMessage(new ChatComponentText("\u00A7aCongratulations, you reached level "+newLevel));
+		this.player.addChatMessage(new ChatComponentText("\u00A7aCongratulations, you reached level "+newLevel+"!"));
+		int i = newLevel % 10 != 0 ? 1 : 5;
+		addSkillpoint(i);
+		this.player.addChatMessage(new ChatComponentText("\u00A77You have been awarded "+i+" skill point(s)."));
 
+	}
+	
+	public void addSkillpoint(int i)
+	{
+		int skillpoints = getSkillpoints();
+		this.player.getDataWatcher().updateObject(SKILLPOINTS, skillpoints+i);
+	}
+	
+	public void useSkillpoint()
+	{
+		int skillpoints = getSkillpoints()-1;
+		this.player.getDataWatcher().updateObject(SKILLPOINTS, skillpoints);
+	}
+	
+	public boolean checkSkillpoints()
+	{
+		if(getSkillpoints() > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public void upgradeSkill(String skill)
+	{
+		int str = getStat("str"), att = getStat("att"), def = getStat("def"), dex = getStat("dex");
+		int skillpoints = getSkillpoints();
+		
+		if(checkSkillpoints())
+		{
+			if(skill.equals("str"))
+			{
+				System.out.println("Updating stat str");
+				this.player.getDataWatcher().updateObject(STR_WATCHER, str+1);
+				useSkillpoint();
+			}
+			else if(skill.equals("att"))
+			{
+				System.out.println("Updating stat att");
+				this.player.getDataWatcher().updateObject(ATT_WATCHER, att+1);
+				useSkillpoint();
+			}
+			else if(skill.equals("def"))
+			{
+				System.out.println("Updating stat def");
+				this.player.getDataWatcher().updateObject(DEF_WATCHER, def+1);
+				useSkillpoint();
+			}
+			else if(skill.equals("dex"))
+			{
+				System.out.println("Updating stat dex");
+				this.player.getDataWatcher().updateObject(DEX_WATCHER, dex+1);
+				useSkillpoint();
+			}
+		}
 	}
 	
 	public int calculateNewExpToLevel(int level)

@@ -10,7 +10,6 @@ import com.google.common.reflect.Reflection;
 import com.zer0.hardcore.armour.ModArmour;
 import com.zer0.hardcore.blocks.ModBlocks;
 import com.zer0.hardcore.blocks.VanillaBlocks;
-import com.zer0.hardcore.commands.SetLevelCommand;
 import com.zer0.hardcore.entities.EntityOrc;
 import com.zer0.hardcore.entities.Goblin;
 import com.zer0.hardcore.entities.ObsidianKnight;
@@ -26,6 +25,10 @@ import com.zer0.hardcore.packets.LevelSyncHandler;
 import com.zer0.hardcore.packets.LevelSyncHandlerMP;
 import com.zer0.hardcore.packets.LevelSyncMP;
 import com.zer0.hardcore.packets.LevelSyncPacket;
+import com.zer0.hardcore.packets.OpenGuiPacket;
+import com.zer0.hardcore.packets.OpenGuiPacketHandler;
+import com.zer0.hardcore.packets.UpgradeStatPacket;
+import com.zer0.hardcore.packets.UpgradeStatPacketHandler;
 import com.zer0.hardcore.recipes.ArmourRecipes;
 import com.zer0.hardcore.recipes.BlockRecipes;
 import com.zer0.hardcore.recipes.ItemRecipes;
@@ -58,6 +61,10 @@ public class MCHardcore {
 	
 	public static SimpleNetworkWrapper network;
 	
+	//REGISTER GUI IDS
+	private static int guiIndex = 0;
+	public static final int SKILLS_GUI_ID = guiIndex++;
+	
 //PRE-INIT
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -68,6 +75,8 @@ public class MCHardcore {
 	//REGISTER PACKETS
 		network.registerMessage(LevelSyncHandler.class, LevelSyncPacket.class, 0, Side.CLIENT);
 		network.registerMessage(LevelSyncHandlerMP.class, LevelSyncMP.class, 1, Side.CLIENT);
+		network.registerMessage(OpenGuiPacketHandler.class, OpenGuiPacket.class, 2, Side.SERVER);
+		network.registerMessage(UpgradeStatPacketHandler.class, UpgradeStatPacket.class, 3, Side.SERVER);
 		
 	//REGISTER EVENT LISTENERS		
 		MinecraftForge.EVENT_BUS.register(new BlockHarvestEvent());
@@ -111,6 +120,7 @@ public class MCHardcore {
 	public static void load(FMLInitializationEvent event)
 	{
 		proxy.registerNetwork();
+		proxy.registerKeybinds();
 	}
 	
 	@EventHandler
@@ -125,8 +135,5 @@ public class MCHardcore {
 		 MinecraftServer server = MinecraftServer.getServer();
 	     ICommandManager command = server.getCommandManager();
 	     ServerCommandManager manager = (ServerCommandManager) command;
-	     
-	     //REGISTER COMMANDS
-	     manager.registerCommand(new SetLevelCommand());
 	}
 }

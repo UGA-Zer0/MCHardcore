@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 import com.zer0.hardcore.handlers.MCHardcoreGuiHandler;
 import com.zer0.hardcore.help.Reference;
+import com.zer0.hardcore.packets.LevelSyncPacket;
 import com.zer0.hardcore.tile_entities.TileEntityBronzeFurnace;
 import com.zer0.hardcore.tile_entities.TileEntityBronzeGM;
 import com.zer0.hardcore.tile_entities.TileEntityGrindingMachine;
@@ -29,6 +31,11 @@ public class ServerProxy implements IGuiHandler{
 	public void registerNetwork()
 	{
 		NetworkRegistry.INSTANCE.registerGuiHandler(MCHardcore.modInstance, new MCHardcoreGuiHandler());
+	}
+	
+	public void registerKeybinds()
+	{
+		
 	}
 	
 	public int addArmour(String armour)

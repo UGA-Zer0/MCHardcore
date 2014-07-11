@@ -4,9 +4,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.zer0.hardcore.MCHardcore;
 import com.zer0.hardcore.gui.BronzeFurnaceGUI;
 import com.zer0.hardcore.gui.BronzeGrindingMachineGUI;
 import com.zer0.hardcore.gui.GrindingMachineGUI;
+import com.zer0.hardcore.gui.GuiSkills;
 import com.zer0.hardcore.inventory.ContainerBronzeFurnace;
 import com.zer0.hardcore.inventory.ContainerBronzeGM;
 import com.zer0.hardcore.inventory.ContainerGrindingMachine;
@@ -58,6 +60,10 @@ public class MCHardcoreGuiHandler implements IGuiHandler {
 		{
 			TileEntityBronzeFurnace tileEntityBF = (TileEntityBronzeFurnace)te;
 			return new BronzeFurnaceGUI(player.inventory, tileEntityBF);
+		}
+		else if(ID == MCHardcore.SKILLS_GUI_ID)
+		{
+			return new GuiSkills();
 		}
 		return null;
 	}

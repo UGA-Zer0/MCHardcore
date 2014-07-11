@@ -6,32 +6,27 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import com.zer0.hardcore.MCHardcore;
 
-public class OpenGuiPacket extends AbstractPacket
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+
+public class OpenGuiPacket implements IMessage
 {
-	private int id;
+	public int id;
 
 	public OpenGuiPacket() {}
 
 	public OpenGuiPacket(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public void fromBytes(ByteBuf buf) 
+	{
+		this.id = buf.readInt();
+	}
+
+	@Override
+	public void toBytes(ByteBuf buf) 
+	{
+		buf.writeInt(id);
 	}	
-
-	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		buffer.writeInt(id);
-	}
-
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		id = buffer.readInt();
-	}
-
-	@Override
-	public void handleClientSide(EntityPlayer player) {
-	}
-
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		player.openGui(MCHardcore.modInstance, id, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
-}
 }
